@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
-import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.nivelais.covidout.data.entities.Attestation
 import com.nivelais.covidout.data.entities.OutReason
 import com.tom_roush.pdfbox.cos.COSName
@@ -36,6 +35,10 @@ class PdfRepository(
 
         // Font used in the pdf
         private val FONT = PDType1Font.HELVETICA
+
+        // Color to the qr code
+        private const val WHITE = -0x1
+        private const val BLACK = -0x1000000
     }
 
 
@@ -182,7 +185,8 @@ class PdfRepository(
     private fun generateQrCodeData(attestation: Attestation, generatedDate: Date): String {
         // Generate the data for our QrCode
         val generatedFormat = SimpleDateFormat("dd/MM/yyyy 'a' HH'h'mm", Locale.FRANCE)
-        val outTimeFormatted = attestation.outTime.split(":")[0] + "h" + attestation.outTime.split(":")[1]
+        val outTimeFormatted =
+            attestation.outTime.split(":")[0] + "h" + attestation.outTime.split(":")[1]
         return "Cree le: ${generatedFormat.format(generatedDate)};" +
                 "Nom: ${attestation.name};" +
                 "Prenom: ${attestation.surname};" +
@@ -202,7 +206,22 @@ class PdfRepository(
         }
         // Generate the QrCode and encode it to Bitmap
         val bitMatrix = MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, size, size, options)
-        return BarcodeEncoder().createBitmap(bitMatrix)
+
+        // Generate the bitmap from the bitmatrix
+        val width: Int = bitMatrix.width
+        val height: Int = bitMatrix.height
+        val pixels = IntArray(width * height)
+        for (y in 0 until height) {
+            val offset = y * width
+            for (x in 0 until width) {
+                pixels[offset + x] =
+                    if (bitMatrix.get(x, y)) BLACK else WHITE
+            }
+        }
+
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height)
+        return bitmap
     }
 
     /**
