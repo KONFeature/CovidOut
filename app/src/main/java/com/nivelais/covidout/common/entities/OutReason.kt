@@ -1,4 +1,4 @@
-package com.nivelais.covidout.data.entities
+package com.nivelais.covidout.common.entities
 
 enum class OutReason(val value: String) {
     PROFESSIONEL("travail"),

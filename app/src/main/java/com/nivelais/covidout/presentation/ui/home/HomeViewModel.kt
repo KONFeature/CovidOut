@@ -1,26 +1,24 @@
 package com.nivelais.covidout.presentation.ui.home
 
-import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nivelais.covidout.data.entities.Attestation
-import com.nivelais.covidout.data.entities.OutReason
-import com.nivelais.covidout.data.repositories.PdfRepository
-import com.nivelais.covidout.data.repositories.PreferencesRepository
+import com.nivelais.covidout.common.entities.AttestationEntity
+import com.nivelais.covidout.common.entities.OutReason
+import com.nivelais.covidout.common.usecases.GeneratePdfUseCase
+import com.nivelais.covidout.common.usecases.LoadAttestationDatasUseCase
+import com.nivelais.covidout.common.usecases.SaveAttestationDatasUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import org.hamcrest.core.SubstringMatcher
 import java.io.File
 import java.text.SimpleDateFormat
-import java.time.LocalTime
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class HomeViewModel(
-    private val pdfRepository: PdfRepository,
-    private val preferencesRepository: PreferencesRepository
+    private val generatePdfUseCase: GeneratePdfUseCase,
+    private val loadAttestationDatasUseCase: LoadAttestationDatasUseCase,
+    private val saveAttestationDatasUseCase: SaveAttestationDatasUseCase
 ) : ViewModel() {
 
     /*
@@ -39,30 +37,26 @@ class HomeViewModel(
     /**
      * Live data that return the saved attestions infos
      */
-    val liveSavedAttestation = MutableLiveData<Attestation>()
+    val liveSavedAttestation = MutableLiveData<AttestationEntity>()
 
     init {
-        // Find and push the saved attestations
-        scope.launch {
+        //  Load the attestations from preferences
+        loadAttestationDatasUseCase(scope, Unit) { result ->
+            if (!result.isSuccess()) return@loadAttestationDatasUseCase
+
+            // Attestations from preferences
+            val attestationDatas = result.data!!
+
             // Date format for the outDate and outTime
             val outDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE)
             val outTimeFormat = SimpleDateFormat("HH:mm", Locale.FRANCE)
 
-            // Post the value
-            liveSavedAttestation.postValue(
-                Attestation(
-                    preferencesRepository.name,
-                    preferencesRepository.surname,
-                    preferencesRepository.birthdate,
-                    preferencesRepository.birthplace,
-                    preferencesRepository.address,
-                    preferencesRepository.city,
-                    preferencesRepository.postalCode,
-                    OutReason.COURSES,
-                    outDateFormat.format(Date()),
-                    outTimeFormat.format(Date())
-                )
-            )
+            // Put current date and time
+            attestationDatas.outDate = outDateFormat.format(Date())
+            attestationDatas.outTime = outTimeFormat.format(Date())
+
+            // Send it to the view
+            liveSavedAttestation.postValue(attestationDatas)
         }
     }
 
@@ -81,50 +75,27 @@ class HomeViewModel(
         outDate: String,
         outTime: String
     ) {
-        scope.launch {
-            // Bqckup this infos in preferences
-            preferencesRepository.apply {
-                this.name = name
-                this.surname = surname
-                this.birthdate = birthdate
-                this.birthplace = birthplace
-                this.address = address
-                this.city = city
-                this.postalCode = postalCode
-            }
+        // Generate the attestion from the input of the user
+        val attestation = AttestationEntity(
+            name,
+            surname,
+            birthdate,
+            birthplace,
+            address,
+            city,
+            postalCode,
+            outReason,
+            outDate,
+            outTime
+        )
 
-            // Generate the pdf file
-            val generatedPdf = pdfRepository.generate(
-                Attestation(
-                    name,
-                    surname,
-                    birthdate,
-                    birthplace,
-                    address,
-                    city,
-                    postalCode,
-                    outReason,
-                    outDate,
-                    outTime
-                )
-            )
+        // Backup this infos in preferences
+        saveAttestationDatasUseCase(scope, attestation)
 
-            // Send it to the presentation view
-            livePdfFile.postValue(generatedPdf)
+        // Generate the PDf File
+        generatePdfUseCase(scope, attestation) { result ->
+            // Send it to the view if it was correctly generated
+            if (result.isSuccess()) livePdfFile.postValue(result.data)
         }
-    }
-
-    /**
-     * Retreive the out date for now
-     */
-    fun getBaseOutDate() {
-
-    }
-
-    /**
-     * Retreive the out time for now
-     */
-    fun getBaseOutTime() {
-
     }
 }

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.nivelais.covidout.data.entities.OutReason
+import com.nivelais.covidout.common.entities.OutReason
 import com.nivelais.covidout.databinding.ActivityHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
@@ -97,7 +97,8 @@ class HomeActivity : AppCompatActivity() {
                 // Set outDate and outTime
                 binding.inputOutDate.editText?.setText(attestationsSaved.outDate)
                 binding.inputOutTime.editText?.setText(attestationsSaved.outTime)
-        }})
+            }
+        })
 
         // Listener for the generate4d pdf file
         viewModel.livePdfFile.observe(this, Observer { pdfFile ->

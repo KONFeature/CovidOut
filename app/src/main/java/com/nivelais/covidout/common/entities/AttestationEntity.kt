@@ -1,6 +1,6 @@
-package com.nivelais.covidout.data.entities
+package com.nivelais.covidout.common.entities
 
-data class Attestation(
+data class AttestationEntity(
     val name: String,
     val surname: String,
     val birthDate: String,
@@ -8,7 +8,7 @@ data class Attestation(
     val address: String,
     val city: String,
     val postalCode: String,
-    val outReason: OutReason,
-    val outDate: String,
-    val outTime: String
+    val outReason: OutReason?,
+    var outDate: String,
+    var outTime: String
 )

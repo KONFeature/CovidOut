@@ -1,11 +1,13 @@
 package com.nivelais.covidout.data.repositories
 
 import android.content.SharedPreferences
+import com.nivelais.covidout.common.entities.AttestationEntity
+import com.nivelais.covidout.common.repositories.PreferencesRepository
 
 /**
  * Repository to interact with all of our shared preferences
  */
-class PreferencesRepository(private val prefs: SharedPreferences) {
+class PreferencesRepositoryImpl(private val prefs: SharedPreferences) : PreferencesRepository {
 
     companion object {
         const val KEY_NAME = "name"
@@ -44,5 +46,31 @@ class PreferencesRepository(private val prefs: SharedPreferences) {
     var city : String
         get() = prefs.getString(KEY_CITY, "")?:""
         set(value) = prefs.edit().putString(KEY_CITY, value).apply()
+
+
+    override suspend fun saveAttestationData(attestation: AttestationEntity) {
+        name = attestation.name
+        surname = attestation.surname
+        birthdate = attestation.birthDate
+        birthplace = attestation.birthPlace
+        address = attestation.address
+        city = attestation.city
+        postalCode = attestation.postalCode
+    }
+
+
+    override suspend fun getSavedAttestation() =
+        AttestationEntity(
+            name,
+            surname,
+            birthdate,
+            birthplace,
+            address,
+            city,
+            postalCode,
+            null,
+            "",
+            ""
+        )
 
 }

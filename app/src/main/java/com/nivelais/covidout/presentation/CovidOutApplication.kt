@@ -3,6 +3,7 @@ package com.nivelais.covidout.presentation
 import android.app.Application
 import com.nivelais.covidout.presentation.di.objectboxModule
 import com.nivelais.covidout.presentation.di.repositoryModule
+import com.nivelais.covidout.presentation.di.useCasesModule
 import com.nivelais.covidout.presentation.di.viewModelModule
 import com.tom_roush.pdfbox.util.PDFBoxResourceLoader
 import org.koin.android.ext.koin.androidContext
@@ -22,7 +23,7 @@ class CovidOutApplication : Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@CovidOutApplication)
-            modules(listOf(objectboxModule, repositoryModule, viewModelModule))
+            modules(listOf(objectboxModule, repositoryModule, useCasesModule, viewModelModule))
         }
     }
 }
