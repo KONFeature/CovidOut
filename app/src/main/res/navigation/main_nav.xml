@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav"
+    app:startDestination="@+id/createAttestationFragment">
+
+    <fragment
+        android:id="@+id/createAttestationFragment"
+        android:name="com.nivelais.covidout.presentation.ui.create.CreateAttestationFragment"
+        android:label="CreateAttestationFragment">
+        <action
+            android:id="@+id/action_createAttestationFragment_to_pdfActionsDialog"
+            app:destination="@id/attestationActionsDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/attestationActionsDialog"
+        android:name="com.nivelais.covidout.presentation.ui.pdfactions.AttestationActionsDialog"
+        android:label="AttestationActionsDialog">
+        <argument
+            android:name="attestationId"
+            app:argType="long" />
+    </dialog>
+</navigation>

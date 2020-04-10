@@ -1,6 +1,5 @@
 package com.nivelais.covidout.common.usecases
 
-import com.nivelais.covidout.common.entities.Data
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch

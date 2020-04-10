@@ -1,4 +1,4 @@
-package com.nivelais.covidout.common.entities
+package com.nivelais.covidout.common.usecases
 
 /**
  * A generic wrapper class around data request
@@ -10,7 +10,12 @@ data class Data<RequestData>(
 ) {
     companion object {
         // Simple function to post a success request
-        fun <RequestData> succes(data: RequestData) = Data(Status.SUCCESSFUL, data, null)
+        fun <RequestData> succes(data: RequestData) =
+            Data(
+                Status.SUCCESSFUL,
+                data,
+                null
+            )
     }
 
     fun isLoading() = responseType == Status.LOADING

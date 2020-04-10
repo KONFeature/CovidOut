@@ -3,7 +3,6 @@ package com.nivelais.covidout.data
 import android.graphics.Bitmap
 import android.graphics.Color
 import com.google.zxing.common.BitMatrix
-import com.nivelais.covidout.data.repositories.PdfRepositoryImpl
 import com.tom_roush.pdfbox.cos.COSName
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.pdmodel.PDPageContentStream
@@ -46,7 +45,7 @@ fun PDPageContentStream.writeText(text: String, posX: Float, posY: Float, textSi
     }
 }
 
-fun PDPageContentStream.addBitmap(document : PDDocument, bitmap: Bitmap, posX: Float, posY: Float) {
+fun PDPageContentStream.addBitmap(document: PDDocument, bitmap: Bitmap, posX: Float, posY: Float) {
     // Stream that will be used to write our bitmap on the pdf
     val outputStream = ByteArrayOutputStream()
 

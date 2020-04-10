@@ -6,15 +6,19 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.nivelais.covidout.common.entities.AttestationEntity
+import com.nivelais.covidout.common.entities.AttestationPdfEntity
 import com.nivelais.covidout.common.entities.OutReason
 import com.nivelais.covidout.common.repositories.PdfRepository
 import com.nivelais.covidout.data.addBitmap
+import com.nivelais.covidout.data.db.AttestationPdfDbEntity
 import com.nivelais.covidout.data.generateBitmap
 import com.nivelais.covidout.data.writeText
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.pdmodel.PDPage
 import com.tom_roush.pdfbox.pdmodel.PDPageContentStream
-import com.tom_roush.pdfbox.pdmodel.font.PDType1Font
+import io.objectbox.Box
+import io.objectbox.BoxStore
+import io.objectbox.kotlin.boxFor
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,50 +29,87 @@ import kotlin.collections.HashMap
  */
 class PdfRepositoryImpl(
     private val assetManager: AssetManager,
-    private val cacheDir: File
+    pdfInternalDir: File,
+    boxStore: BoxStore
 ) : PdfRepository {
 
     companion object {
         // Template file to load from the assets
         private const val TEMPLATE_NAME = "attestation-deplacement.pdf"
 
-        // Font used in the pdf
-        private val FONT = PDType1Font.HELVETICA
-
-        // Color to the qr code
-        private const val WHITE = -0x1
-        private const val BLACK = -0x1000000
+        // Folder to store PDF file
+        private const val INTENAL_FOLDER_NAME = "generated-pdf"
     }
 
+    /**
+     * Folder in wich we will store generated PDF File
+     */
+    private final val pdfFolder = File(pdfInternalDir, INTENAL_FOLDER_NAME)
 
     /**
-     * Generate a PDF File from an attestation object
+     * Access to our database
      */
-    override suspend fun generate(attestation: AttestationEntity): File {
+    private val dao: Box<AttestationPdfDbEntity> = boxStore.boxFor()
+
+    override suspend fun generate(attestation: AttestationEntity): Long {
         // Get the template document and first page
         val document = PDDocument.load(assetManager.open(TEMPLATE_NAME))
         val page = document.getPage(0)
 
-        val generatedDate = Date();
 
         // Add some text
+        val generatedDate = Date();
         writeAttestationInfos(attestation, generatedDate, document, page);
 
-        // Generate the QrCode
+        // Generate and add the QrCode
         val qrCodeData = generateQrCodeData(attestation, generatedDate)
-
-        // Add the QrCode to the PDF
         writeQrCode(qrCodeData, document, page)
 
         // Generate an output file
-        val outFile = File(cacheDir, "tmp_attestations.pdf")
+        val outFile = File(pdfFolder, "attestations-deplacement-${System.currentTimeMillis()}.pdf")
+
+        // Check if the directory exist before
+        if (!pdfFolder.exists()) pdfFolder.mkdirs()
+        if (outFile.exists()) outFile.delete()
 
         // Write and close the file
         document.save(outFile)
         document.close()
 
+        // Calculate the end of validity date
+        val endValidity = Calendar.getInstance().apply {
+            // Date
+            set(Calendar.YEAR, attestation.outDate.split("/")[2].toInt())
+            set(Calendar.MONTH, attestation.outDate.split("/")[1].toInt())
+            set(Calendar.DAY_OF_MONTH, attestation.outDate.split("/")[0].toInt())
+
+            // Time
+            set(Calendar.HOUR_OF_DAY, attestation.outTime.split(":")[0].toInt())
+            set(Calendar.MINUTE, attestation.outTime.split(":")[1].toInt())
+        }
+
+        // Add it to the database
+        val attestationId = dao.put(
+            AttestationPdfDbEntity(
+                path = outFile.absolutePath,
+                outDateTime = endValidity.time,
+                reasonCode = attestation.outReason?.code
+            )
+        )
+
         // Return it
-        return outFile
+        return attestationId
+    }
+
+    override suspend fun getAttestation(id: Long): AttestationPdfEntity {
+        val attestationPdfDb = dao.get(id)
+
+        return AttestationPdfEntity(
+            attestationPdfDb.id,
+            attestationPdfDb.path!!,
+            attestationPdfDb.outDateTime!!,
+            OutReason.fromCode(attestationPdfDb.reasonCode)
+        )
     }
 
     /**
@@ -86,10 +127,8 @@ class PdfRepositoryImpl(
         // Name
         contentStream.writeText("${attestation.surname} ${attestation.name}", 123F, 686F)
 
-        // Birthday
+        // Birthday and birthplace
         contentStream.writeText(attestation.birthDate, 123F, 661F)
-
-        // Birthplace
         contentStream.writeText(attestation.birthPlace, 92F, 638F)
 
         // Address
@@ -101,13 +140,9 @@ class PdfRepositoryImpl(
         // Signin address
         contentStream.writeText(attestation.city, 134F, 226F)
 
-        // Out date
+        // Out date and time
         contentStream.writeText(attestation.outDate, 92F, 200F)
-
-        // Out time hour
         contentStream.writeText(attestation.outTime.split(":")[0], 200F, 200F)
-
-        // Out time minute
         contentStream.writeText(attestation.outTime.split(":")[1], 220F, 200F)
 
         // Check the right reason case
@@ -124,10 +159,8 @@ class PdfRepositoryImpl(
         contentStream.writeText("x", 76F, crossPosition, 19F)
         contentStream.writeText("x", 76F, crossPosition, 19F)
 
-        // Generated text
+        // Generated text and time
         contentStream.writeText("Date de création:", 464F, 150F, 7F)
-
-        // Generated time
         val generatedFormat = SimpleDateFormat("dd/MM/yyyy 'à' HH'h'mm", Locale.FRANCE)
         contentStream.writeText(generatedFormat.format(generatedDate), 455F, 144F, 7F)
 

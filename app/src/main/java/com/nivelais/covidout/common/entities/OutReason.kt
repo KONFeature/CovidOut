@@ -1,11 +1,18 @@
 package com.nivelais.covidout.common.entities
 
-enum class OutReason(val value: String) {
-    PROFESSIONEL("travail"),
-    COURSES("courses"),
-    SOINS("sante"),
-    FAMILLE("famille"),
-    SPORT("sport"),
-    JUDICIAIRE("judiciaire"),
-    INTERET_GENERAL("missions")
+/**
+ * Reason to go out
+ */
+enum class OutReason(val value: String, val code: Int) {
+    PROFESSIONEL("travail", 0),
+    COURSES("courses", 1),
+    SOINS("sante", 2),
+    FAMILLE("famille", 3),
+    SPORT("sport", 4),
+    JUDICIAIRE("judiciaire", 5),
+    INTERET_GENERAL("missions", 6);
+
+    companion object {
+        fun fromCode(code: Int?)  = values().firstOrNull { it.code == code }?:COURSES
+    }
 }
