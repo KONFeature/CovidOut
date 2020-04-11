@@ -120,7 +120,7 @@ class PdfRepositoryImpl(
                 attestationPdfDb.outDateTime?:Date(),
                 OutReason.fromCode(attestationPdfDb.reasonCode)
             )
-        }
+        }.sortedBy { it.outDateTime }
     }
 
     override suspend fun deleteAttestation(id: Long) {

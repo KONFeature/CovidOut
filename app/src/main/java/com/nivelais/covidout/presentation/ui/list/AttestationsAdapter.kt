@@ -50,14 +50,16 @@ class AttestationsAdapter(
             onOpenClick: ((AttestationPdfEntity) -> Unit),
             omMoreClick: ((AttestationPdfEntity) -> Unit)
         ) {
+            // TODO : Start time too
+            // TODO : Show in red text if not valid
             // Get the end of validity date and put it in the view
             Calendar.getInstance().apply {
                 time = attestation.outDateTime
                 add(Calendar.HOUR_OF_DAY, 1)
 
-                val outValidityFormat = SimpleDateFormat("dd/MM/yyyy 'a' HH:mm", Locale.FRANCE)
+                val validityFormat = SimpleDateFormat("dd/MM/yyyy 'a' HH:mm", Locale.FRANCE)
                 binding.textAttestationsEndValidity.text =
-                    "Fin de validite a ${outValidityFormat.format(time)}"
+                    "Fin de validite le ${validityFormat.format(time)}"
             }
 
             // Bind the reason to the view

@@ -14,33 +14,38 @@
         android:text="Gerer mon attestation" />
 
     <TextView
-        android:id="@+id/text_attestation_generation_date"
+        android:id="@+id/text_attestation_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Generer le : " />
+        android:text="Raison de sortie : Course" />
+
+    <TextView
+        android:id="@+id/text_attestation_start_validity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Debut de validite le 111 a 111" />
 
     <TextView
         android:id="@+id/text_attestation_end_validity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Valide jusau'a : " />
+        android:text="Fin de validite le 111 a 111" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_open"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Ouvrir"
+        app:icon="@drawable/ic_open" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_open"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:text="Ouvrir"
-            app:icon="@drawable/ic_open" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save"

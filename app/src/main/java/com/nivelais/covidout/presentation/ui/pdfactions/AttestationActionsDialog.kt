@@ -57,10 +57,6 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO : Better button placement
-        // TODO : End validity datetime (like attestationslist)
-        // TODO : Add attestation reason
-
         // Ask the view model to load the attestations
         viewModel.loadAttestion(args.attestationId)
 
@@ -83,17 +79,22 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
     private fun loadAttestationToView(attestation: AttestationPdfEntity) {
         // Set the generation date
         val generatedFormat = SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE)
-        binding.textAttestationGenerationDate.text =
-            "Generer le : ${generatedFormat.format(attestation.outDateTime)}"
+        binding.textAttestationReason.text =
+            "Raison de sortie : ${attestation.reason.value}"
 
         // Set the end of validity
+        val validityFormat = SimpleDateFormat("dd/MM/yyyy 'a' HH:mm", Locale.FRANCE)
         Calendar.getInstance().apply {
             time = attestation.outDateTime
-            add(Calendar.HOUR_OF_DAY, 1)
 
-            val validityFormat = SimpleDateFormat("HH:mm", Locale.FRANCE)
+            // Debut de valitide
+            binding.textAttestationStartValidity.text =
+                "Debut de validite le ${validityFormat.format(time)}"
+
+            // Fin de validite
+            add(Calendar.HOUR_OF_DAY, 1)
             binding.textAttestationEndValidity.text =
-                "Valide jusqu'a ${validityFormat.format(time)}"
+                "Fin de validite le ${validityFormat.format(time)}"
         }
 
         // Get the file matching the attestations
