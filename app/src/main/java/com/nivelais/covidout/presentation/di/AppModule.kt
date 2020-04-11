@@ -3,15 +3,13 @@ package com.nivelais.covidout.presentation.di
 import android.content.Context
 import com.nivelais.covidout.common.repositories.PdfRepository
 import com.nivelais.covidout.common.repositories.PreferencesRepository
-import com.nivelais.covidout.common.usecases.GeneratePdfUseCase
-import com.nivelais.covidout.common.usecases.GetAttestationPdfUseCase
-import com.nivelais.covidout.common.usecases.LoadAttestationDatasUseCase
-import com.nivelais.covidout.common.usecases.SaveAttestationDatasUseCase
+import com.nivelais.covidout.common.usecases.*
 import com.nivelais.covidout.data.db.ObjectBox
 import com.nivelais.covidout.data.repositories.PdfRepositoryImpl
 import com.nivelais.covidout.data.repositories.PreferencesRepositoryImpl
 import com.nivelais.covidout.presentation.ui.create.CreateAttestationViewModel
 import com.nivelais.covidout.presentation.ui.home.HomeViewModel
+import com.nivelais.covidout.presentation.ui.list.AttestationsViewModel
 import com.nivelais.covidout.presentation.ui.pdfactions.AttestationActionsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -55,6 +53,8 @@ val useCasesModule = module {
     single { GetAttestationPdfUseCase(get()) }
     single { SaveAttestationDatasUseCase(get()) }
     single { LoadAttestationDatasUseCase(get()) }
+    single { FetchAttestationsUseCase(get()) }
+    single { DeleteAttestationPdfUseCase(get()) }
 }
 
 /**
@@ -63,5 +63,6 @@ val useCasesModule = module {
 val viewModelModule = module {
     viewModel { HomeViewModel() }
     viewModel { CreateAttestationViewModel(get(), get(), get()) }
-    viewModel { AttestationActionsViewModel(get()) }
+    viewModel { AttestationActionsViewModel(get(), get()) }
+    viewModel { AttestationsViewModel(get()) }
 }

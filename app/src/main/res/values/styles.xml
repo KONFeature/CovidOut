@@ -9,7 +9,18 @@
     </style>
 
     <!-- OutlinedButton icon only -->
-    <style name="AppTheme.Button.Outlined.Icon" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="AppTheme.Button.Icon.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <!-- Button icon only -->
+    <style name="AppTheme.Button.Icon" parent="Widget.MaterialComponents.Button">
         <item name="iconPadding">0dp</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>

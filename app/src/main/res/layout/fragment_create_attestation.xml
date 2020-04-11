@@ -8,15 +8,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="8dp"
         tools:context=".presentation.ui.home.HomeActivity">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             style="@style/TextAppearance.MaterialComponents.Headline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="Attestation de déplacement dérogatoire" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_attestations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Mes attestations" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_name"
@@ -72,7 +79,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_birthdate_picker"
-                style="@style/AppTheme.Button.Outlined.Icon"
+                style="@style/AppTheme.Button.Icon.Outlined"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:icon="@drawable/ic_calendar" />
@@ -230,7 +237,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_out_date_picker"
-                style="@style/AppTheme.Button.Outlined.Icon"
+                style="@style/AppTheme.Button.Icon.Outlined"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:icon="@drawable/ic_calendar" />
@@ -261,7 +268,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_out_time_picker"
-                style="@style/AppTheme.Button.Outlined.Icon"
+                style="@style/AppTheme.Button.Icon.Outlined"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:icon="@drawable/ic_clock" />

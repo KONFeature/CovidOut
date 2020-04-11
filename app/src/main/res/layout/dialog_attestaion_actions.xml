@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -27,29 +27,40 @@
         android:layout_margin="8dp"
         android:text="Valide jusau'a : " />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_open"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:icon="@drawable/ic_open"
-        android:text="Ouvrir" />
+        android:orientation="horizontal">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:icon="@drawable/ic_save"
-        android:text="Enregistrer" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_delete"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:icon="@drawable/ic_delete"
-        android:text="Supprimer" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="Ouvrir"
+            app:icon="@drawable/ic_open" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="Enregistrer"
+            app:icon="@drawable/ic_save" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_delete"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="Supprimer"
+            app:icon="@drawable/ic_delete" />
+
+    </LinearLayout>
 
 </LinearLayout>

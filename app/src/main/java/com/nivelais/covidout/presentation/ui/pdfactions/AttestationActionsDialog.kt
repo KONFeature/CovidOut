@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nivelais.covidout.common.entities.AttestationPdfEntity
 import com.nivelais.covidout.databinding.DialogAttestaionActionsBinding
+import com.nivelais.covidout.presentation.openViaIntent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileOutputStream
@@ -56,6 +57,10 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // TODO : Better button placement
+        // TODO : End validity datetime (like attestationslist)
+        // TODO : Add attestation reason
+
         // Ask the view model to load the attestations
         viewModel.loadAttestion(args.attestationId)
 
@@ -64,12 +69,12 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
             loadAttestationToView(it)
         })
 
-        // Load the pdf file
-
-
-        // Listener on button
-
-        // Maybe view model ?
+        // Listener on delete button
+        binding.btnDelete.setOnClickListener {
+            viewModel.deleteAttestation(args.attestationId)
+            // Close the dialog
+            dismiss()
+        }
     }
 
     /**
@@ -96,7 +101,7 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
 
         // listener on open button
         binding.btnOpen.setOnClickListener {
-            launchOpenAttestationIntent()
+            attestationFile.openViaIntent(context!!)
         }
 
         // listener on save button
@@ -130,37 +135,5 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
         }
 
         super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    /**
-     * Create and launch an intent that will try to open the attestations
-     */
-    private fun launchOpenAttestationIntent() {
-        // Create the uri and the intent to open the attestations
-        val uri =
-            FileProvider.getUriForFile(
-                context!!,
-                "com.nivelais.covidout.provider",
-                attestationFile
-            )
-        val intent = Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(uri, "application/pdf")
-            flags = Intent.FLAG_ACTIVITY_NO_HISTORY
-        }
-
-        // Approve all the potential openner of the file
-        val resInfoList = activity?.packageManager?.queryIntentActivities(
-            intent,
-            PackageManager.MATCH_DEFAULT_ONLY
-        )
-        for (resolveInfo in resInfoList ?: ArrayList()) {
-            val packageName = resolveInfo.activityInfo.packageName
-            activity?.grantUriPermission(
-                packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION
-            )
-        }
-
-        // Launch the openning of the attestations
-        startActivity(intent)
     }
 }

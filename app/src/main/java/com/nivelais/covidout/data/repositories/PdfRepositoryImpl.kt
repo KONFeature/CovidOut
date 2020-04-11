@@ -107,9 +107,24 @@ class PdfRepositoryImpl(
         return AttestationPdfEntity(
             attestationPdfDb.id,
             attestationPdfDb.path!!,
-            attestationPdfDb.outDateTime!!,
+            attestationPdfDb.outDateTime?:Date(),
             OutReason.fromCode(attestationPdfDb.reasonCode)
         )
+    }
+
+    override suspend fun getAttestations(): List<AttestationPdfEntity> {
+        return dao.all.map { attestationPdfDb ->
+            AttestationPdfEntity(
+                attestationPdfDb.id,
+                attestationPdfDb.path!!,
+                attestationPdfDb.outDateTime?:Date(),
+                OutReason.fromCode(attestationPdfDb.reasonCode)
+            )
+        }
+    }
+
+    override suspend fun deleteAttestation(id: Long) {
+        dao.remove(id)
     }
 
     /**

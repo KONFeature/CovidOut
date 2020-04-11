@@ -145,6 +145,13 @@ class CreateAttestationFragment() : Fragment() {
             ).show()
         }
 
+        // Old attestations listener
+        binding.btnAttestations.setOnClickListener {
+            findNavController().navigate(
+                CreateAttestationFragmentDirections.actionCreateAttestationFragmentToAttestationsDialog()
+            )
+        }
+
         // Generate button listener
         binding.btnGenerate.setOnClickListener {
             // Find the selected reason
@@ -210,18 +217,6 @@ class CreateAttestationFragment() : Fragment() {
                         pdfId
                     )
                 )
-
-
-                // Create an intent to create a pdf file in wich to write
-//                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-//                    type = "application/pdf"
-//
-//                    addCategory(Intent.CATEGORY_OPENABLE)
-//                    putExtra(Intent.EXTRA_TITLE, "attestation derogatoire de sortie.pdf")
-//                }
-//
-//                // Launch the intent
-//                startActivityForResult(intent, CREATE_FILE_REQUEST_CODE)
             }
         })
     }

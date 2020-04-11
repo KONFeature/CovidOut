@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
     app:startDestination="@+id/createAttestationFragment">
 
@@ -11,6 +12,9 @@
         <action
             android:id="@+id/action_createAttestationFragment_to_pdfActionsDialog"
             app:destination="@id/attestationActionsDialog" />
+        <action
+            android:id="@+id/action_createAttestationFragment_to_attestationsDialog"
+            app:destination="@id/attestationsDialog" />
     </fragment>
     <dialog
         android:id="@+id/attestationActionsDialog"
@@ -19,5 +23,14 @@
         <argument
             android:name="attestationId"
             app:argType="long" />
+    </dialog>
+    <dialog
+        android:id="@+id/attestationsDialog"
+        android:name="com.nivelais.covidout.presentation.ui.list.AttestationsDialog"
+        android:label="dialog_attestations"
+        tools:layout="@layout/dialog_attestations" >
+        <action
+            android:id="@+id/action_attestationsDialog_to_attestationActionsDialog"
+            app:destination="@id/attestationActionsDialog" />
     </dialog>
 </navigation>

@@ -3,6 +3,7 @@ package com.nivelais.covidout.presentation.ui.pdfactions
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nivelais.covidout.common.entities.AttestationPdfEntity
+import com.nivelais.covidout.common.usecases.DeleteAttestationPdfUseCase
 import com.nivelais.covidout.common.usecases.GetAttestationPdfUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +13,10 @@ import kotlin.coroutines.CoroutineContext
 /**
  * View model for the actions a user can do one an attestations
  */
-class AttestationActionsViewModel(private val getAttestationPdfUseCase: GetAttestationPdfUseCase) :
+class AttestationActionsViewModel(
+    private val getAttestationPdfUseCase: GetAttestationPdfUseCase,
+    private val deleteAttestationPdfUseCase: DeleteAttestationPdfUseCase
+) :
     ViewModel() {
 
     /*
@@ -35,5 +39,12 @@ class AttestationActionsViewModel(private val getAttestationPdfUseCase: GetAttes
         getAttestationPdfUseCase(scope, id) {
             if (it.isSuccess()) attestationLive.postValue(it.data)
         }
+    }
+
+    /**
+     * Delete the current displayed attestation
+     */
+    fun deleteAttestation(id: Long) {
+        deleteAttestationPdfUseCase(scope, id)
     }
 }

@@ -14,4 +14,14 @@ interface PdfRepository {
      * Retreive an attestation pdf from it's id
      */
     suspend fun getAttestation(id: Long): AttestationPdfEntity
+
+    /**
+     * Retreive all the attestations pdf
+     */
+    suspend fun getAttestations(): List<AttestationPdfEntity>
+
+    /**
+     * Delete an attestation pdf from it's id
+     */
+    suspend fun deleteAttestation(id: Long)
 }
