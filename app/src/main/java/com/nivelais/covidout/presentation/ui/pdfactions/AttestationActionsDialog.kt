@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nivelais.covidout.R
 import com.nivelais.covidout.common.entities.AttestationPdfEntity
+import com.nivelais.covidout.common.utils.DateUtils
 import com.nivelais.covidout.databinding.DialogAttestaionActionsBinding
 import com.nivelais.covidout.presentation.openViaIntent
-import com.nivelais.covidout.common.utils.DateUtils
+import com.nivelais.covidout.presentation.shareViaIntent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileOutputStream
@@ -77,8 +79,7 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
     private fun loadAttestationToView(attestation: AttestationPdfEntity) {
         // Set the generation date
         val reasonsTxt = attestation.reasons.joinToString(", ") { it.value }
-        binding.textAttestationReason.text =
-            "Raison de sortie : ${reasonsTxt}"
+        binding.textAttestationReason.text = getString(R.string.lbl_out_reason, reasonsTxt)
 
         // Set the start and end of validity
         Calendar.getInstance().apply {
@@ -86,12 +87,12 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
 
             // Debut de valitide
             binding.textAttestationStartValidity.text =
-                "Debut de validite le ${DateUtils.dateTimeFormat.format(time)}"
+                getString(R.string.lbl_start_validity, DateUtils.dateTimeFormat.format(time))
 
             // Fin de validite
             add(Calendar.HOUR_OF_DAY, 1)
             binding.textAttestationEndValidity.text =
-                "Fin de validite le ${DateUtils.dateTimeFormat.format(time)}"
+                getString(R.string.lbl_end_validity, DateUtils.dateTimeFormat.format(time))
         }
 
         // Get the file matching the attestations
@@ -100,6 +101,11 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
         // listener on open button
         binding.btnOpen.setOnClickListener {
             attestationFile.openViaIntent(context!!)
+        }
+
+        // listener on share button
+        binding.btnShare.setOnClickListener {
+            attestationFile.shareViaIntent(context!!)
         }
 
         // listener on save button

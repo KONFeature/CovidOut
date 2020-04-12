@@ -11,36 +11,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Gerer mon attestation" />
+        android:text="@string/btn_manage_my_attestation" />
 
     <TextView
         android:id="@+id/text_attestation_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Raison de sortie : Course" />
+        android:text="@string/lbl_out_reason" />
 
     <TextView
         android:id="@+id/text_attestation_start_validity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Debut de validite le 111 a 111" />
+        android:text="@string/lbl_start_validity" />
 
     <TextView
         android:id="@+id/text_attestation_end_validity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Fin de validite le 111 a 111" />
+        android:text="@string/lbl_end_validity" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_open"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="Ouvrir"
-        app:icon="@drawable/ic_open" />
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="@string/btn_open"
+            app:icon="@drawable/ic_open" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_share"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="@string/btn_share"
+            app:icon="@drawable/ic_share" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:text="Enregistrer"
+            android:text="@string/btn_save"
             app:icon="@drawable/ic_save" />
 
         <com.google.android.material.button.MaterialButton
@@ -63,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:text="Supprimer"
+            android:text="@string/btn_delete"
             app:icon="@drawable/ic_delete" />
 
     </LinearLayout>

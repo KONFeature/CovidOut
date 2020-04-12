@@ -17,21 +17,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Attestation de déplacement dérogatoire" />
+            android:text="@string/lbl_home_title" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_attestations_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Vous avez actuellement 0 attestations valide sur 10 attestations" />
+            android:text="@string/lbl_attestations_count" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_attestations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Mes attestations" />
+            android:text="@string/lbl_my_attestations" />
 
         <fragment
             android:id="@+id/nav_host_fragment"

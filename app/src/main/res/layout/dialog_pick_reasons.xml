@@ -13,14 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Motifs de sortie" />
+        android:text="@string/lbl_out_reasons" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/input_motif_pro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle, lorsqu'ils sont indispensables à l'exercice d’activités ne pouvant être organisées sous forme de télétravail ou déplacements professionnels ne pouvant être différés."
+        android:text="@string/lbl_motif_pro"
         app:useMaterialThemeColors="false" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Déplacements pour effectuer des achats de fournitures nécessaires à l’activité professionnelle et des achats de première nécessité dans des établissements dont les activités demeurent autorisées (liste sur gouvernement.fr)."
+        android:text="@string/lbl_motif_courses"
         app:useMaterialThemeColors="true" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
@@ -36,41 +36,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Consultations et soins ne pouvant être assurés à distance et ne pouvant être différés ; consultations et soins des patients atteints d'une affection de longue durée." />
+        android:text="@string/lbl_motifs_soins" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/input_motif_famille"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Déplacements pour motif familial impérieux, pour l’assistance aux personnes vulnérables ou la garde d’enfants." />
+        android:text="@string/lbl_motifs_famille" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/input_motif_sport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Déplacements brefs, dans la limite d'une heure quotidienne et dans un rayon maximal d'un kilomètre autour du domicile, liés soit à l'activité physique individuelle des personnes, à l'exclusion de toute pratique sportive collective et de toute proximité avec d'autres personnes, soit à la promenade avec les seules personnes regroupées dans un même domicile, soit aux besoins des animaux de compagnie." />
+        android:text="@string/lbl_motifs_sport" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/input_motif_judiciaire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Convocation judiciaire ou administrative." />
+        android:text="@string/lbl_motifs_judiciaire" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/input_motif_interet_general"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Participation à des missions d’intérêt général sur demande de l’autorité administrative." />
+        android:text="@string/lbl_motifs_ig" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_validate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Valider"
+        android:text="@string/btn_validate"
         app:icon="@drawable/ic_check" />
 
 </LinearLayout>

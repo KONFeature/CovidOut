@@ -49,3 +49,25 @@ fun File.openViaIntent(context: Context) {
     // Launch the openning of the attestations
     context.startActivity(intent)
 }
+
+/**
+ * Share a file via an intent
+ */
+fun File.shareViaIntent(context: Context) {
+    // Create the uri and the intent to open the attestations
+    val uri =
+        FileProvider.getUriForFile(
+            context,
+            "com.nivelais.covidout.provider",
+            this
+        )
+    val shareIntent = Intent.createChooser(Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_STREAM, uri)
+        type = "application/pdf"
+
+    }, this.name)
+
+    // Launch the openning of the attestations
+    context.startActivity(shareIntent)
+}

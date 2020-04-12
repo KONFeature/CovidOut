@@ -124,6 +124,13 @@ class PdfRepositoryImpl(
     }
 
     override suspend fun deleteAttestation(id: Long) {
+        // Try to find the local file and delete it
+        dao.get(id).path?.let {path ->
+            val localFile = File(path)
+            if(localFile.exists()) localFile.delete()
+        }
+
+        // Remove it from database
         dao.remove(id)
     }
 

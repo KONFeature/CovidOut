@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.nivelais.covidout.R
 import com.nivelais.covidout.common.utils.DateUtils
 import com.nivelais.covidout.databinding.FragmentCreateAttestationBinding
 import org.koin.android.ext.android.inject
@@ -18,7 +19,7 @@ import java.util.*
 /**
  * Fragment used to create new attestations
  */
-class CreateAttestationFragment() : Fragment() {
+class CreateAttestationFragment : Fragment() {
 
     /**
      * Import the view model
@@ -160,9 +161,10 @@ class CreateAttestationFragment() : Fragment() {
             run {
                 if (reasons.size > 0) {
                     val pickedReasonsText = reasons.joinToString(", ") { it.value }
-                    binding.textPickedMotif.text = "Actuellement sélectionner : $pickedReasonsText"
+                    binding.textPickedMotif.text =
+                        getString(R.string.lbl_actual_out_reason, pickedReasonsText)
                 } else {
-                    binding.textPickedMotif.text = "Aucun motifs sélectionner"
+                    binding.textPickedMotif.text = getString(R.string.lbl_no_out_reason)
                 }
             }
         })
@@ -178,9 +180,6 @@ class CreateAttestationFragment() : Fragment() {
                 binding.inputAddress.editText?.setText(attestationsSaved.address)
                 binding.inputCity.editText?.setText(attestationsSaved.city)
                 binding.inputPostalCode.editText?.setText(attestationsSaved.postalCode)
-
-                // Set the reason
-                val test: Long
 
                 // Set outDate and outTime
                 binding.inputOutDate.editText?.setText(attestationsSaved.outDate)

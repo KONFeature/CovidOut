@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Mes attestations" />
+        android:text="@string/lbl_my_attestations" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_attestations"

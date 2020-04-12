@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Mes informations" />
+            android:text="@string/lbl_my_infos" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_name"
@@ -25,7 +25,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Prénom"
+                android:hint="@string/lbl_surname"
                 android:inputType="text"
                 android:lines="1" />
 
@@ -40,7 +40,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nom"
+                android:hint="@string/lbl_name"
                 android:inputType="text"
                 android:lines="1" />
 
@@ -62,7 +62,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Date de naissance (JJ/MM/AAAA)"
+                    android:hint="@string/hint_input_birthdate"
                     android:inputType="text"
                     android:lines="1" />
 
@@ -86,7 +86,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Lieu de naissance"
+                android:hint="@string/hint_input_birthplace"
                 android:inputType="text"
                 android:lines="1" />
 
@@ -101,7 +101,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Adresse"
+                android:hint="@string/lbl_address"
                 android:inputType="text"
                 android:lines="1" />
 
@@ -116,7 +116,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ville"
+                android:hint="@string/lbl_city"
                 android:inputType="text"
                 android:lines="1" />
 
@@ -131,7 +131,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Code postal"
+                android:hint="@string/lbl_postal_code"
                 android:inputType="number"
                 android:lines="1"
                 android:maxLength="5" />
@@ -143,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Motif de sortie" />
+            android:text="@string/lbl_out_reasons" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -156,14 +156,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:text="Actuellement sélectionner : courses, travail, judiciaires" />
+                android:text="@string/lbl_actual_out_reason" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_pick_reasons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Selection des motifs" />
+                android:text="@string/btn_pick_reason" />
 
         </LinearLayout>
 
@@ -172,7 +172,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Date et heure de sortie" />
+            android:text="@string/lbl_out_date_time" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -190,7 +190,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Date de sortie (JJ/MM/AAAA)"
+                    android:hint="@string/hint_input_out_date"
                     android:inputType="text"
                     android:lines="1" />
 
@@ -222,7 +222,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Heure de sortie (hh:mm)"
+                    android:hint="@string/hint_input_out_time"
                     android:inputType="text"
                     android:lines="1" />
 
@@ -242,7 +242,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Générer mon attestation" />
+            android:text="@string/btn_generate_attestation" />
 
     </LinearLayout>
 

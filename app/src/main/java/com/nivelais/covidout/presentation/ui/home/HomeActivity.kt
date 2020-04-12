@@ -56,7 +56,7 @@ class HomeActivity : AppCompatActivity() {
         viewModel.liveAttestationsCount.observe(this, Observer {attestationsCount ->
             run {
                 binding.textAttestationsCount.text =
-                    "Vous avez actuellement ${attestationsCount.first} attestations valide sur ${attestationsCount.second} attestations"
+                    getString(R.string.lbl_attestations_count, attestationsCount.first, attestationsCount.second)
             }
         })
 

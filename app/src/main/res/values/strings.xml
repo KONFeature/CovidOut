@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">Attestation de déplacement dérogatoire</string>
+
+    <string name="lbl_home_title">Attestation de déplacement dérogatoire</string>
+    <string name="lbl_attestations_count">Vous avez actuellement %d attestations valides sur %d attestations.</string>
+    <string name="lbl_my_attestations">Mes attestations</string>
+
+    <string name="btn_manage_my_attestation">Gerer mon attestation</string>
+    <string name="lbl_out_reason">Raison de sortie : %s</string>
+    <string name="lbl_start_validity">Début de validité le %s</string>
+    <string name="lbl_end_validity">Fin de validité le %s</string>
+    <string name="btn_open">Ouvrir</string>
+    <string name="btn_save">Enregistrer</string>
+    <string name="btn_delete">Supprimer</string>
+    <string name="lbl_out_reasons">Motifs de sortie</string>
+
+    <string name="lbl_motif_pro">Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle, lorsqu\'ils sont indispensables à l\'exercice d’activités ne pouvant être organisées sous forme de télétravail ou déplacements professionnels ne pouvant être différés.</string>
+    <string name="lbl_motif_courses">Déplacements pour effectuer des achats de fournitures nécessaires à l’activité professionnelle et des achats de première nécessité dans des établissements dont les activités demeurent autorisées (liste sur gouvernement.fr).</string>
+    <string name="lbl_motifs_soins">Consultations et soins ne pouvant être assurés à distance et ne pouvant être différés ; consultations et soins des patients atteints d\'une affection de longue durée.</string>
+    <string name="lbl_motifs_famille">Déplacements pour motif familial impérieux, pour l’assistance aux personnes vulnérables ou la garde d’enfants.</string>
+    <string name="lbl_motifs_sport">Déplacements brefs, dans la limite d\'une heure quotidienne et dans un rayon maximal d\'un kilomètre autour du domicile, liés soit à l\'activité physique individuelle des personnes, à l\'exclusion de toute pratique sportive collective et de toute proximité avec d\'autres personnes, soit à la promenade avec les seules personnes regroupées dans un même domicile, soit aux besoins des animaux de compagnie.</string>
+    <string name="lbl_motifs_judiciaire">Convocation judiciaire ou administrative.</string>
+    <string name="lbl_motifs_ig">Participation à des missions d’intérêt général sur demande de l’autorité administrative.</string>
+
+    <string name="btn_validate">Valider</string>
+    <string name="lbl_my_infos">Mes informations</string>
+    <string name="lbl_surname">Prénom</string>
+    <string name="lbl_name">Nom</string>
+    <string name="hint_input_birthdate">Date de naissance (JJ/MM/AAAA)</string>
+    <string name="hint_input_birthplace">Lieu de naissance</string>
+    <string name="lbl_address">Adresse</string>
+    <string name="lbl_city">Ville</string>
+    <string name="lbl_postal_code">Code postal</string>
+    <string name="lbl_no_out_reason">Aucun motif actuellement sélectionné</string>
+    <string name="lbl_actual_out_reason">Motifs actuel : %s</string>
+    <string name="btn_pick_reason">Sélection de motifs</string>
+    <string name="lbl_out_date_time">Date et heure de sortie</string>
+    <string name="hint_input_out_date">Date de sortie (JJ/MM/AAAA)</string>
+    <string name="hint_input_out_time">Heure de sortie (hh:mm)</string>
+    <string name="btn_generate_attestation">Générer mon attestation</string>
+    <string name="btn_share">Partager</string>
+
 </resources>
