@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -64,5 +63,10 @@ class AttestationsDialog() : BottomSheetDialogFragment() {
                 )
             }
         })
+
+        // Listen to the backstack update to update the list
+        findNavController().addOnDestinationChangedListener { controller, destination, arguments ->
+            viewModel.updateAttestations()
+        }
     }
 }

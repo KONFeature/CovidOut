@@ -53,13 +53,14 @@ val useCasesModule = module {
     single { FetchAttestationsUseCase(get()) }
     single { DeleteAttestationPdfUseCase(get()) }
     single { GetDefaultAttestationUseCase(get()) }
+    single { GetAttestationsCountUseCase(get()) }
 }
 
 /**
  * Module for view models
  */
 val viewModelModule = module {
-    viewModel { HomeViewModel() }
+    viewModel { HomeViewModel(get()) }
     single { CreateAttestationViewModel(get(), get()) }
     viewModel { AttestationActionsViewModel(get(), get()) }
     viewModel { AttestationsViewModel(get()) }

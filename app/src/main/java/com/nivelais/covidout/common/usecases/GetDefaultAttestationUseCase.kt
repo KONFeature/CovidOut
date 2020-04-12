@@ -7,7 +7,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 /**
- * Get a default attestations to fill preferences data
+ * Get a default attestations from preferences data
  */
 class GetDefaultAttestationUseCase(
     private val preferencesRepository: PreferencesRepository

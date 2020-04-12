@@ -30,7 +30,7 @@ class CreateAttestationViewModel(
     /**
      * Live data for the pdf file generated
      */
-    val livePdfIdFile = MutableLiveData<Long>()
+    val liveGeneratedPdfId = MutableLiveData<Long>()
 
     /**
      * Live data that return the saved attestions infos
@@ -38,17 +38,15 @@ class CreateAttestationViewModel(
     val liveSavedAttestation = MutableLiveData<AttestationEntity>()
 
     /**
-     * List of the current picked reasons
+     * Live data of the list of the current picked reasons
      */
-    val livePickedReasons: MutableLiveData<HashSet<OutReason>> = MutableLiveData(HashSet())
+    val livePickedReasons = MutableLiveData(HashSet<OutReason>())
 
     init {
         //  Load the attestations from preferences
         getDefaultAttestationUseCase(scope, Unit) { result ->
-            if (!result.isSuccess()) return@getDefaultAttestationUseCase
-
-            // Send it to the view
-            liveSavedAttestation.postValue(result.data)
+            if (result.isSuccess())
+                liveSavedAttestation.postValue(result.data)
         }
     }
 
@@ -83,7 +81,7 @@ class CreateAttestationViewModel(
         // Generate the PDf File
         generatePdfUseCase(scope, attestation) { result ->
             // Send it to the view if it was correctly generated
-            if (result.isSuccess()) livePdfIdFile.postValue(result.data)
+            if (result.isSuccess()) liveGeneratedPdfId.postValue(result.data)
         }
     }
 

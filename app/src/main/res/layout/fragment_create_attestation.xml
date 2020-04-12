@@ -4,26 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp"
-        tools:context=".presentation.ui.home.HomeActivity">
-
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Attestation de déplacement dérogatoire" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_attestations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Mes attestations" />
+        android:orientation="vertical">
 
         <TextView
             style="@style/TextAppearance.MaterialComponents.Headline6"

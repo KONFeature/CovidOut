@@ -29,9 +29,20 @@ class AttestationsViewModel(
     val liveAttestations = MutableLiveData<List<AttestationPdfEntity>>()
 
     init {
+        updateAttestations()
+    }
+
+    /**
+     * Update the list of attestations
+     */
+    fun updateAttestations() {
         // Search for attestations generated
         fetchAttestationsUseCase(scope, Unit) {
-            if (it.isSuccess()) liveAttestations.postValue(it.data)
+            // Exit if it wasn't a success
+            if (!it.isSuccess()) return@fetchAttestationsUseCase
+
+            // If it was listen to the channel and send event
+            liveAttestations.postValue(it.data)
         }
     }
 }

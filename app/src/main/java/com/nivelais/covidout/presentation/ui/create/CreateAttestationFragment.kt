@@ -134,13 +134,6 @@ class CreateAttestationFragment() : Fragment() {
             ).show()
         }
 
-        // Old attestations listener
-        binding.btnAttestations.setOnClickListener {
-            findNavController().navigate(
-                CreateAttestationFragmentDirections.actionCreateAttestationFragmentToAttestationsDialog()
-            )
-        }
-
         // Generate button listener
         binding.btnGenerate.setOnClickListener {
             // Launch the generation with all the field from the view
@@ -197,7 +190,7 @@ class CreateAttestationFragment() : Fragment() {
         })
 
         // Listener for the generate4d pdf file
-        viewModel.livePdfIdFile.observe(viewLifecycleOwner, Observer { pdfId ->
+        viewModel.liveGeneratedPdfId.observe(viewLifecycleOwner, Observer { pdfId ->
             run {
                 // Open the dialog to let the user choose what he want to do with the generated file
                 findNavController().navigate(

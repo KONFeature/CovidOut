@@ -2,7 +2,9 @@ package com.nivelais.covidout.presentation.ui.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.nivelais.covidout.R
 import com.nivelais.covidout.common.entities.AttestationPdfEntity
 import com.nivelais.covidout.databinding.ItemAttestationBinding
 import com.nivelais.covidout.common.utils.DateUtils
@@ -50,7 +52,6 @@ class AttestationsAdapter(
             onOpenClick: ((AttestationPdfEntity) -> Unit),
             omMoreClick: ((AttestationPdfEntity) -> Unit)
         ) {
-            // TODO : Show in red text if not valid
             // Get the end of validity date and put it in the view
             Calendar.getInstance().apply {
                 time = attestation.outDateTime
@@ -58,11 +59,15 @@ class AttestationsAdapter(
                 // Debut de valitide
                 binding.textAttestationsStartValidity.text =
                     "Debut de validite le ${DateUtils.dateTimeFormat.format(time)}"
+                if(time.time > System.currentTimeMillis())
+                    binding.textAttestationsStartValidity.setTextColor(ContextCompat.getColor(binding.root.context, R.color.red))
 
                 // Fin de validite
                 add(Calendar.HOUR_OF_DAY, 1)
                 binding.textAttestationsEndValidity.text =
                     "Fin de validite le ${DateUtils.dateTimeFormat.format(time)}"
+                if(time.time < System.currentTimeMillis())
+                    binding.textAttestationsEndValidity.setTextColor(ContextCompat.getColor(binding.root.context, R.color.red))
             }
 
             // Bind the reason to the view

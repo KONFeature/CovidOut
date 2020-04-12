@@ -22,11 +22,6 @@ class PickReasonsDialog() : BottomSheetDialogFragment() {
      */
     private lateinit var binding: DialogPickReasonsBinding
 
-    /**
-     * The arguments for this dialog
-     */
-//    val args: PickReasonsDialogArgs by navArgs()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
