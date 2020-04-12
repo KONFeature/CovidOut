@@ -1,7 +1,7 @@
 package com.nivelais.covidout.data.repositories
 
 import android.content.SharedPreferences
-import com.nivelais.covidout.common.entities.AttestationEntity
+import com.nivelais.covidout.common.entities.PersonnalInformationEntity
 import com.nivelais.covidout.common.repositories.PreferencesRepository
 
 /**
@@ -19,58 +19,55 @@ class PreferencesRepositoryImpl(private val prefs: SharedPreferences) : Preferen
         const val KEY_CITY = "city"
     }
 
-    var name : String
-        get() = prefs.getString(KEY_NAME, "")?:""
+    var name: String
+        get() = prefs.getString(KEY_NAME, "") ?: ""
         set(value) = prefs.edit().putString(KEY_NAME, value).apply()
 
-    var surname : String
-        get() = prefs.getString(KEY_SURNAME, "")?:""
+    var surname: String
+        get() = prefs.getString(KEY_SURNAME, "") ?: ""
         set(value) = prefs.edit().putString(KEY_SURNAME, value).apply()
 
-    var birthdate : String
-        get() = prefs.getString(KEY_BIRTHDAY, "")?:""
+    var birthdate: String
+        get() = prefs.getString(KEY_BIRTHDAY, "") ?: ""
         set(value) = prefs.edit().putString(KEY_BIRTHDAY, value).apply()
 
-    var birthplace : String
-        get() = prefs.getString(KEY_BIRTHPLACE, "")?:""
+    var birthplace: String
+        get() = prefs.getString(KEY_BIRTHPLACE, "") ?: ""
         set(value) = prefs.edit().putString(KEY_BIRTHPLACE, value).apply()
 
-    var address : String
-        get() = prefs.getString(KEY_ADDRESS, "")?:""
+    var address: String
+        get() = prefs.getString(KEY_ADDRESS, "") ?: ""
         set(value) = prefs.edit().putString(KEY_ADDRESS, value).apply()
 
-    var postalCode : String
-        get() = prefs.getString(KEY_POSTAL_CODE, "")?:""
+    var postalCode: String
+        get() = prefs.getString(KEY_POSTAL_CODE, "") ?: ""
         set(value) = prefs.edit().putString(KEY_POSTAL_CODE, value).apply()
 
-    var city : String
-        get() = prefs.getString(KEY_CITY, "")?:""
+    var city: String
+        get() = prefs.getString(KEY_CITY, "") ?: ""
         set(value) = prefs.edit().putString(KEY_CITY, value).apply()
 
 
-    override suspend fun saveAttestationData(attestation: AttestationEntity) {
-        name = attestation.name
-        surname = attestation.surname
-        birthdate = attestation.birthDate
-        birthplace = attestation.birthPlace
-        address = attestation.address
-        city = attestation.city
-        postalCode = attestation.postalCode
+    override suspend fun savePersonalInformation(information: PersonnalInformationEntity) {
+        name = information.name
+        surname = information.surname
+        birthdate = information.birthDate
+        birthplace = information.birthPlace
+        address = information.address
+        city = information.city
+        postalCode = information.postalCode
     }
 
 
-    override suspend fun getSavedAttestation() =
-        AttestationEntity(
+    override suspend fun getPersonalInformation() =
+        PersonnalInformationEntity(
             name,
             surname,
             birthdate,
             birthplace,
             address,
             city,
-            postalCode,
-            null,
-            "",
-            ""
+            postalCode
         )
 
 }

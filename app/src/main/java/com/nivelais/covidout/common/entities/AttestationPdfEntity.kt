@@ -6,5 +6,5 @@ data class AttestationPdfEntity(
     val id: Long,
     val path: String,
     val outDateTime: Date,
-    val reason: OutReason
+    val reasons: List<OutReason>
 )

@@ -1,22 +1,20 @@
 package com.nivelais.covidout.presentation.ui.pdfactions
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nivelais.covidout.common.entities.AttestationPdfEntity
 import com.nivelais.covidout.databinding.DialogAttestaionActionsBinding
 import com.nivelais.covidout.presentation.openViaIntent
+import com.nivelais.covidout.common.utils.DateUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileOutputStream
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AttestationActionsDialog() : BottomSheetDialogFragment() {
@@ -78,23 +76,22 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
      */
     private fun loadAttestationToView(attestation: AttestationPdfEntity) {
         // Set the generation date
-        val generatedFormat = SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE)
+        val reasonsTxt = attestation.reasons.joinToString(", ") { it.value }
         binding.textAttestationReason.text =
-            "Raison de sortie : ${attestation.reason.value}"
+            "Raison de sortie : ${reasonsTxt}"
 
-        // Set the end of validity
-        val validityFormat = SimpleDateFormat("dd/MM/yyyy 'a' HH:mm", Locale.FRANCE)
+        // Set the start and end of validity
         Calendar.getInstance().apply {
             time = attestation.outDateTime
 
             // Debut de valitide
             binding.textAttestationStartValidity.text =
-                "Debut de validite le ${validityFormat.format(time)}"
+                "Debut de validite le ${DateUtils.dateTimeFormat.format(time)}"
 
             // Fin de validite
             add(Calendar.HOUR_OF_DAY, 1)
             binding.textAttestationEndValidity.text =
-                "Fin de validite le ${validityFormat.format(time)}"
+                "Fin de validite le ${DateUtils.dateTimeFormat.format(time)}"
         }
 
         // Get the file matching the attestations

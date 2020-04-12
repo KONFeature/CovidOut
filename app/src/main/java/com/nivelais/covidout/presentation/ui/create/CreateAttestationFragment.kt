@@ -10,9 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.nivelais.covidout.common.entities.OutReason
+import com.nivelais.covidout.common.utils.DateUtils
 import com.nivelais.covidout.databinding.FragmentCreateAttestationBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
 import java.util.*
 
 /**
@@ -23,7 +23,7 @@ class CreateAttestationFragment() : Fragment() {
     /**
      * Import the view model
      */
-    private val viewModel: CreateAttestationViewModel by viewModel()
+    private val viewModel: CreateAttestationViewModel by inject()
 
     /**
      * Import the view binding
@@ -50,41 +50,39 @@ class CreateAttestationFragment() : Fragment() {
      * Init the view
      */
     private fun initView() {
+        // Listener on the pick reasons click
+        binding.btnPickReasons.setOnClickListener {
+            // Launch the reason picker dialog
+            findNavController().navigate(
+                CreateAttestationFragmentDirections.actionCreateAttestationFragmentToPickReasonsDialog()
+            )
+        }
+
         // Listener on Birth date calender button
         binding.btnBirthdatePicker.setOnClickListener {
-            // Start the picker on the current value, or to 01/01/1990 iw we don't find a current value
-            val startDate = Calendar.getInstance().apply {
-                val currentInputSplitted =
-                    binding.inputBirthDate.editText?.text?.toString()?.split("/")
-                set(Calendar.DAY_OF_MONTH, currentInputSplitted?.get(0)?.toIntOrNull() ?: 1990)
-                set(Calendar.MONTH, currentInputSplitted?.get(1)?.toIntOrNull()?.minus(1) ?: 1)
-                set(Calendar.YEAR, currentInputSplitted?.get(2)?.toIntOrNull() ?: 1)
-            }.timeInMillis
+            // Try to parse the date, or init it at 01/01/1990
+            val currentInput = binding.inputBirthDate.editText?.text?.toString()
+            val inputToParse =
+                if (currentInput?.trim()?.isNotEmpty() == true) currentInput else "01/01/1990"
+            val currentDate =
+                DateUtils.dateFormat.parse(inputToParse)!! // Not null, because we have an exception if that's null
+
             // Max moth = current month & open at startTime
             val pickerConstraints = CalendarConstraints
                 .Builder()
-                .setOpenAt(startDate)
+                .setOpenAt(currentDate.time)
                 .setEnd(System.currentTimeMillis())
                 .build()
             // Create the picker with all the constraints
             val picker = MaterialDatePicker.Builder.datePicker()
                 .setCalendarConstraints(pickerConstraints)
                 .setTitleText("Date de naissance")
-                .setSelection(startDate)
+                .setSelection(currentDate.time)
                 .build()
             // Listen to picker validation
             picker.addOnPositiveButtonClickListener { selectedDateInMillis ->
-                Calendar.getInstance().apply {
-                    timeInMillis = selectedDateInMillis
-
-                    // Fetch day / moth / year
-                    val day = get(Calendar.DAY_OF_MONTH).toString().padStart(2, '0')
-                    val month = get(Calendar.MONTH).toString().padStart(2, '0')
-                    val year = get(Calendar.YEAR).toString()
-
-                    // Add them is the edittext
-                    binding.inputBirthDate.editText?.setText("$day/$month/$year")
-                }
+                val selectedDate = Date(selectedDateInMillis)
+                binding.inputBirthDate.editText?.setText(DateUtils.dateFormat.format(selectedDate))
             }
             // Display it
             picker.show(parentFragmentManager, picker.toString())
@@ -105,17 +103,8 @@ class CreateAttestationFragment() : Fragment() {
                 .build()
             // Listen to the picker validation
             picker.addOnPositiveButtonClickListener { selectedDateInMillis ->
-                Calendar.getInstance().apply {
-                    timeInMillis = selectedDateInMillis
-
-                    // Fetch day / moth / year
-                    val day = get(Calendar.DAY_OF_MONTH).toString().padStart(2, '0')
-                    val month = get(Calendar.MONTH).toString().padStart(2, '0')
-                    val year = get(Calendar.YEAR).toString()
-
-                    // Add them is the edittext
-                    binding.inputOutDate.editText?.setText("$day/$month/$year")
-                }
+                val selectedDate = Date(selectedDateInMillis)
+                binding.inputOutDate.editText?.setText(DateUtils.dateFormat.format(selectedDate))
             }
             // Show it
             picker.show(parentFragmentManager, picker.toString())
@@ -154,18 +143,6 @@ class CreateAttestationFragment() : Fragment() {
 
         // Generate button listener
         binding.btnGenerate.setOnClickListener {
-            // Find the selected reason
-            val outReason = when (binding.inputGroupMotif.checkedRadioButtonId) {
-                binding.inputMotifCourses.id -> OutReason.COURSES
-                binding.inputMotifFamille.id -> OutReason.FAMILLE
-                binding.inputMotifInteretGeneral.id -> OutReason.INTERET_GENERAL
-                binding.inputMotifJudiciaire.id -> OutReason.JUDICIAIRE
-                binding.inputMotifPro.id -> OutReason.PROFESSIONEL
-                binding.inputMotifSoins.id -> OutReason.SOINS
-                binding.inputMotifSport.id -> OutReason.SPORT
-                else -> OutReason.COURSES
-            }
-
             // Launch the generation with all the field from the view
             viewModel.generateAttestation(
                 binding.inputName.editText?.text.toString(),
@@ -175,7 +152,6 @@ class CreateAttestationFragment() : Fragment() {
                 binding.inputAddress.editText?.text.toString(),
                 binding.inputCity.editText?.text.toString(),
                 binding.inputPostalCode.editText?.text.toString(),
-                outReason,
                 binding.inputOutDate.editText?.text.toString(),
                 binding.inputOutTime.editText?.text.toString()
             )
@@ -186,6 +162,18 @@ class CreateAttestationFragment() : Fragment() {
      * Init live data observer
      */
     private fun initObserver() {
+        // Observer for the picked reasons
+        viewModel.livePickedReasons.observe(viewLifecycleOwner, Observer { reasons ->
+            run {
+                if (reasons.size > 0) {
+                    val pickedReasonsText = reasons.joinToString(", ") { it.value }
+                    binding.textPickedMotif.text = "Actuellement sélectionner : $pickedReasonsText"
+                } else {
+                    binding.textPickedMotif.text = "Aucun motifs sélectionner"
+                }
+            }
+        })
+
         // Listener for the attestions infos to load
         viewModel.liveSavedAttestation.observe(viewLifecycleOwner, Observer { attestationsSaved ->
             run {

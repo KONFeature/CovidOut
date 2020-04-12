@@ -12,7 +12,7 @@
         tools:context=".presentation.ui.home.HomeActivity">
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/TextAppearance.MaterialComponents.Headline4"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -24,6 +24,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="Mes attestations" />
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Mes informations" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_name"
@@ -64,9 +71,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_birth_date"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp">
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -148,69 +155,40 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="Motif de sortie" />
 
-        <RadioGroup
-            android:id="@+id/input_group_motif"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/input_motif_pro"
+            <TextView
+                android:id="@+id/text_picked_motif"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="Actuellement sélectionner : courses, travail, judiciaires" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pick_reasons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle, lorsqu'ils sont indispensables à l'exercice d’activités ne pouvant être organisées sous forme de télétravail ou déplacements professionnels ne pouvant être différés." />
+                android:text="Selection des motifs" />
 
-            <RadioButton
-                android:id="@+id/input_motif_courses"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:checked="true"
-                android:text="Déplacements pour effectuer des achats de fournitures nécessaires à l’activité professionnelle et des achats de première nécessité dans des établissements dont les activités demeurent autorisées (liste sur gouvernement.fr)." />
+        </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/input_motif_soins"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Consultations et soins ne pouvant être assurés à distance et ne pouvant être différés ; consultations et soins des patients atteints d'une affection de longue durée." />
-
-            <RadioButton
-                android:id="@+id/input_motif_famille"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Déplacements pour motif familial impérieux, pour l’assistance aux personnes vulnérables ou la garde d’enfants." />
-
-            <RadioButton
-                android:id="@+id/input_motif_sport"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Déplacements brefs, dans la limite d'une heure quotidienne et dans un rayon maximal d'un kilomètre autour du domicile, liés soit à l'activité physique individuelle des personnes, à l'exclusion de toute pratique sportive collective et de toute proximité avec d'autres personnes, soit à la promenade avec les seules personnes regroupées dans un même domicile, soit aux besoins des animaux de compagnie." />
-
-            <RadioButton
-                android:id="@+id/input_motif_judiciaire"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Convocation judiciaire ou administrative." />
-
-            <RadioButton
-                android:id="@+id/input_motif_interet_general"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Participation à des missions d’intérêt général sur demande de l’autorité administrative." />
-
-        </RadioGroup>
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Date et heure de sortie" />
 
         <LinearLayout
             android:layout_width="match_parent"

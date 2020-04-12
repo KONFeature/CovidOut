@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".presentation.ui.list.AttestationsDialog">
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Motifs de sortie" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/input_motif_pro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle, lorsqu'ils sont indispensables à l'exercice d’activités ne pouvant être organisées sous forme de télétravail ou déplacements professionnels ne pouvant être différés."
+        app:useMaterialThemeColors="false" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/input_motif_courses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Déplacements pour effectuer des achats de fournitures nécessaires à l’activité professionnelle et des achats de première nécessité dans des établissements dont les activités demeurent autorisées (liste sur gouvernement.fr)."
+        app:useMaterialThemeColors="true" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/input_motif_soins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Consultations et soins ne pouvant être assurés à distance et ne pouvant être différés ; consultations et soins des patients atteints d'une affection de longue durée." />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/input_motif_famille"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Déplacements pour motif familial impérieux, pour l’assistance aux personnes vulnérables ou la garde d’enfants." />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/input_motif_sport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Déplacements brefs, dans la limite d'une heure quotidienne et dans un rayon maximal d'un kilomètre autour du domicile, liés soit à l'activité physique individuelle des personnes, à l'exclusion de toute pratique sportive collective et de toute proximité avec d'autres personnes, soit à la promenade avec les seules personnes regroupées dans un même domicile, soit aux besoins des animaux de compagnie." />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/input_motif_judiciaire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Convocation judiciaire ou administrative." />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/input_motif_interet_general"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Participation à des missions d’intérêt général sur demande de l’autorité administrative." />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_validate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Valider"
+        app:icon="@drawable/ic_check" />
+
+</LinearLayout>

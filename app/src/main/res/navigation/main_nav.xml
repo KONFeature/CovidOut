@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_createAttestationFragment_to_attestationsDialog"
             app:destination="@id/attestationsDialog" />
+        <action
+            android:id="@+id/action_createAttestationFragment_to_pickReasonsDialog"
+            app:destination="@id/pickReasonsDialog" />
     </fragment>
     <dialog
         android:id="@+id/attestationActionsDialog"
@@ -28,9 +31,13 @@
         android:id="@+id/attestationsDialog"
         android:name="com.nivelais.covidout.presentation.ui.list.AttestationsDialog"
         android:label="dialog_attestations"
-        tools:layout="@layout/dialog_attestations" >
+        tools:layout="@layout/dialog_attestations">
         <action
             android:id="@+id/action_attestationsDialog_to_attestationActionsDialog"
             app:destination="@id/attestationActionsDialog" />
     </dialog>
+    <dialog
+        android:id="@+id/pickReasonsDialog"
+        android:name="com.nivelais.covidout.presentation.ui.create.PickReasonsDialog"
+        android:label="PickReasonsDialog" />
 </navigation>

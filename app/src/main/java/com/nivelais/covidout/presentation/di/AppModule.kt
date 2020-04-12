@@ -14,7 +14,6 @@ import com.nivelais.covidout.presentation.ui.pdfactions.AttestationActionsViewMo
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import java.io.File
 
 
 /**
@@ -49,12 +48,11 @@ val repositoryModule = module {
  * Module for all the repository implementation
  */
 val useCasesModule = module {
-    single { GeneratePdfUseCase(get()) }
+    single { GeneratePdfUseCase(get(), get()) }
     single { GetAttestationPdfUseCase(get()) }
-    single { SaveAttestationDatasUseCase(get()) }
-    single { LoadAttestationDatasUseCase(get()) }
     single { FetchAttestationsUseCase(get()) }
     single { DeleteAttestationPdfUseCase(get()) }
+    single { GetDefaultAttestationUseCase(get()) }
 }
 
 /**
@@ -62,7 +60,7 @@ val useCasesModule = module {
  */
 val viewModelModule = module {
     viewModel { HomeViewModel() }
-    viewModel { CreateAttestationViewModel(get(), get(), get()) }
+    single { CreateAttestationViewModel(get(), get()) }
     viewModel { AttestationActionsViewModel(get(), get()) }
     viewModel { AttestationsViewModel(get()) }
 }

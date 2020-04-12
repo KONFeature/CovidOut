@@ -80,7 +80,10 @@ class PdfRepositoryImpl(
         val endValidity = Calendar.getInstance().apply {
             // Date
             set(Calendar.YEAR, attestation.outDate.split("/")[2].toInt())
-            set(Calendar.MONTH, attestation.outDate.split("/")[1].toInt())
+            set(
+                Calendar.MONTH,
+                attestation.outDate.split("/")[1].toInt().minus(1)
+            ) // Minus 1 because month start by 0
             set(Calendar.DAY_OF_MONTH, attestation.outDate.split("/")[0].toInt())
 
             // Time
@@ -88,17 +91,14 @@ class PdfRepositoryImpl(
             set(Calendar.MINUTE, attestation.outTime.split(":")[1].toInt())
         }
 
-        // Add it to the database
-        val attestationId = dao.put(
+        // Add it to the database and return it
+        return dao.put(
             AttestationPdfDbEntity(
                 path = outFile.absolutePath,
                 outDateTime = endValidity.time,
-                reasonCode = attestation.outReason?.code
+                outReasons = attestation.outReasons
             )
         )
-
-        // Return it
-        return attestationId
     }
 
     override suspend fun getAttestation(id: Long): AttestationPdfEntity {
@@ -107,8 +107,8 @@ class PdfRepositoryImpl(
         return AttestationPdfEntity(
             attestationPdfDb.id,
             attestationPdfDb.path!!,
-            attestationPdfDb.outDateTime?:Date(),
-            OutReason.fromCode(attestationPdfDb.reasonCode)
+            attestationPdfDb.outDateTime ?: Date(),
+            attestationPdfDb.outReasons
         )
     }
 
@@ -117,8 +117,8 @@ class PdfRepositoryImpl(
             AttestationPdfEntity(
                 attestationPdfDb.id,
                 attestationPdfDb.path!!,
-                attestationPdfDb.outDateTime?:Date(),
-                OutReason.fromCode(attestationPdfDb.reasonCode)
+                attestationPdfDb.outDateTime ?: Date(),
+                attestationPdfDb.outReasons
             )
         }.sortedBy { it.outDateTime }
     }
@@ -160,19 +160,20 @@ class PdfRepositoryImpl(
         contentStream.writeText(attestation.outTime.split(":")[0], 200F, 200F)
         contentStream.writeText(attestation.outTime.split(":")[1], 220F, 200F)
 
-        // Check the right reason case
-        val crossPosition = when (attestation.outReason) {
-            OutReason.PROFESSIONEL -> 527F
-            OutReason.COURSES -> 478F
-            OutReason.SOINS -> 436F
-            OutReason.FAMILLE -> 400F
-            OutReason.SPORT -> 345F
-            OutReason.JUDICIAIRE -> 298F
-            OutReason.INTERET_GENERAL -> 260F
-            else -> 478F
+        // Check all the right reason case
+        for (outReason in attestation.outReasons) {
+            val crossPosition = when (outReason) {
+                OutReason.PROFESSIONEL -> 527F
+                OutReason.COURSES -> 478F
+                OutReason.SOINS -> 436F
+                OutReason.FAMILLE -> 400F
+                OutReason.SPORT -> 345F
+                OutReason.JUDICIAIRE -> 298F
+                OutReason.INTERET_GENERAL -> 260F
+                else -> 478F
+            }
+            contentStream.writeText("x", 76F, crossPosition, 19F)
         }
-        contentStream.writeText("x", 76F, crossPosition, 19F)
-        contentStream.writeText("x", 76F, crossPosition, 19F)
 
         // Generated text and time
         contentStream.writeText("Date de création:", 464F, 150F, 7F)
@@ -197,7 +198,7 @@ class PdfRepositoryImpl(
                 "Naissance: ${attestation.birthDate} a ${attestation.birthPlace};" +
                 "Adresse: ${attestation.address} ${attestation.postalCode} ${attestation.city};" +
                 "Sortie: ${attestation.outDate} a ${outTimeFormatted};" +
-                "Motifs: ${attestation.outReason?.value}"
+                "Motifs: ${attestation.outReasons.joinToString("-") { it.value }}"
     }
 
     /**

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nivelais.covidout.common.entities.AttestationPdfEntity
 import com.nivelais.covidout.databinding.ItemAttestationBinding
-import java.text.SimpleDateFormat
+import com.nivelais.covidout.common.utils.DateUtils
 import java.util.*
 
 /**
@@ -50,20 +50,24 @@ class AttestationsAdapter(
             onOpenClick: ((AttestationPdfEntity) -> Unit),
             omMoreClick: ((AttestationPdfEntity) -> Unit)
         ) {
-            // TODO : Start time too
             // TODO : Show in red text if not valid
             // Get the end of validity date and put it in the view
             Calendar.getInstance().apply {
                 time = attestation.outDateTime
-                add(Calendar.HOUR_OF_DAY, 1)
 
-                val validityFormat = SimpleDateFormat("dd/MM/yyyy 'a' HH:mm", Locale.FRANCE)
+                // Debut de valitide
+                binding.textAttestationsStartValidity.text =
+                    "Debut de validite le ${DateUtils.dateTimeFormat.format(time)}"
+
+                // Fin de validite
+                add(Calendar.HOUR_OF_DAY, 1)
                 binding.textAttestationsEndValidity.text =
-                    "Fin de validite le ${validityFormat.format(time)}"
+                    "Fin de validite le ${DateUtils.dateTimeFormat.format(time)}"
             }
 
             // Bind the reason to the view
-            binding.textAttestationsReason.text = "Raison de sortie : ${attestation.reason.value}"
+            val reasonsTxt = attestation.reasons.joinToString(", ") { it.value }
+            binding.textAttestationsReason.text = "Raison de sortie : ${reasonsTxt}"
 
             // Bind the action to the listener
             binding.btnOpen.setOnClickListener {
