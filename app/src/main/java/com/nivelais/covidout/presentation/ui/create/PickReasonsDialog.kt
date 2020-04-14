@@ -50,25 +50,25 @@ class PickReasonsDialog() : BottomSheetDialogFragment() {
         binding.btnValidate.setOnClickListener { dismiss() }
 
         // Listen on the different checkbox
-        binding.inputMotifCourses.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.inputMotifCourses.setOnCheckedChangeListener { _, isChecked ->
             viewModel.savePickedReason(OutReason.COURSES, isChecked)
         }
-        binding.inputMotifFamille.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.inputMotifFamille.setOnCheckedChangeListener { _, isChecked ->
             viewModel.savePickedReason(OutReason.FAMILLE, isChecked)
         }
-        binding.inputMotifInteretGeneral.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.inputMotifInteretGeneral.setOnCheckedChangeListener { _, isChecked ->
             viewModel.savePickedReason(OutReason.INTERET_GENERAL, isChecked)
         }
-        binding.inputMotifSport.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.inputMotifSport.setOnCheckedChangeListener { _, isChecked ->
             viewModel.savePickedReason(OutReason.SPORT, isChecked)
         }
-        binding.inputMotifPro.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.inputMotifPro.setOnCheckedChangeListener { _, isChecked ->
             viewModel.savePickedReason(OutReason.PROFESSIONEL, isChecked)
         }
-        binding.inputMotifJudiciaire.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.inputMotifJudiciaire.setOnCheckedChangeListener { _, isChecked ->
             viewModel.savePickedReason(OutReason.JUDICIAIRE, isChecked)
         }
-        binding.inputMotifSoins.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.inputMotifSoins.setOnCheckedChangeListener { _, isChecked ->
             viewModel.savePickedReason(OutReason.SOINS, isChecked)
         }
     }

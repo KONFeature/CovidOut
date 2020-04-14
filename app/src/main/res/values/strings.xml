@@ -2,6 +2,7 @@
     <string name="app_name">Attestation de déplacement dérogatoire</string>
 
     <string name="lbl_home_title">Attestation de déplacement dérogatoire</string>
+    <string name="lbl_attestation_count">Vous avez actuellement %d attestation valide sur %d attestations.</string>
     <string name="lbl_attestations_count">Vous avez actuellement %d attestations valides sur %d attestations.</string>
     <string name="lbl_my_attestations">Mes attestations</string>
 
@@ -41,8 +42,5 @@
     <string name="btn_share">Partager</string>
     <string name="lbl_create">Créer une attestation</string>
     <string name="lbl_attestations">Mes Attestations</string>
-    
-    <string name="channel_notif_name">Attestation de déplacement en cours</string>
-    <string name="channel_notif_description">Vous permet d\'acceder rapidement a vos attestation de déplacement en cours de validite</string>
 
 </resources>

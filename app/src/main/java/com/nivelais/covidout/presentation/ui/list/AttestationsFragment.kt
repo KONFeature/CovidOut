@@ -75,9 +75,10 @@ class AttestationsFragment() : Fragment() {
         sharedViewModel.liveAttestationsCount.observe(viewLifecycleOwner, Observer { attestationsCount ->
             run {
                 // Update text
+                val textToUse = if(attestationsCount.first > 1) R.string.lbl_attestations_count else R.string.lbl_attestation_count
                 binding.textAttestationsCount.text =
                     getString(
-                        R.string.lbl_attestations_count,
+                        textToUse,
                         attestationsCount.first,
                         attestationsCount.second
                     )

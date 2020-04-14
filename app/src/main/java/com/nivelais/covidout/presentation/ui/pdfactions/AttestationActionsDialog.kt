@@ -135,8 +135,7 @@ class AttestationActionsDialog(private val attestationId: Long) : BottomSheetDia
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         // If that's a result of the pick file inent
         if (requestCode == CREATE_FILE_REQUEST_CODE && data != null) {
-            val uri = data.data
-            uri?.let { uri ->
+            data.data?.let { uri ->
                 // Write to the file picked by the user
                 context?.contentResolver?.openFileDescriptor(uri, "w")?.let {
                     val fos = FileOutputStream(it.fileDescriptor)

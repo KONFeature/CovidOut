@@ -178,7 +178,6 @@ class PdfRepositoryImpl(
                 OutReason.SPORT -> 345F
                 OutReason.JUDICIAIRE -> 298F
                 OutReason.INTERET_GENERAL -> 260F
-                else -> 478F
             }
             contentStream.writeText("x", 76F, crossPosition, 19F)
         }
