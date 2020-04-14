@@ -16,9 +16,9 @@ import com.nivelais.covidout.data.writeText
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.pdmodel.PDPage
 import com.tom_roush.pdfbox.pdmodel.PDPageContentStream
+import com.tom_roush.pdfbox.util.Matrix
 import io.objectbox.Box
 import io.objectbox.BoxStore
-import io.objectbox.android.ObjectBoxLiveData
 import io.objectbox.kotlin.boxFor
 import java.io.File
 import java.text.SimpleDateFormat
@@ -145,7 +145,7 @@ class PdfRepositoryImpl(
         page: PDPage
     ) {
         // Create the content stream tht will be used to write in our document
-        val contentStream = PDPageContentStream(document, page, true, true)
+        val contentStream = PDPageContentStream(document, page, true, true, true)
 
         // Name
         contentStream.writeText("${attestation.surname} ${attestation.name}", 123F, 686F)
