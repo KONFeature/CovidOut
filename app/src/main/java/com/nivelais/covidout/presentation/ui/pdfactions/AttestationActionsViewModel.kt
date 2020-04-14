@@ -16,8 +16,7 @@ import kotlin.coroutines.CoroutineContext
 class AttestationActionsViewModel(
     private val getAttestationPdfUseCase: GetAttestationPdfUseCase,
     private val deleteAttestationPdfUseCase: DeleteAttestationPdfUseCase
-) :
-    ViewModel() {
+) : ViewModel() {
 
     /*
     * Job and context for coroutines
@@ -33,6 +32,11 @@ class AttestationActionsViewModel(
     val attestationLive = MutableLiveData<AttestationPdfEntity>()
 
     /**
+     * Live data to know when an attestation is deleted
+     */
+    val attestationDeletedLive = MutableLiveData<Void>()
+
+    /**
      * Load an habilitations from it's id
      */
     fun loadAttestion(id: Long) {
@@ -45,6 +49,9 @@ class AttestationActionsViewModel(
      * Delete the current displayed attestation
      */
     fun deleteAttestation(id: Long) {
-        deleteAttestationPdfUseCase(scope, id)
+        deleteAttestationPdfUseCase(scope, id) {
+            // Send callback to the view
+            attestationDeletedLive.postValue(null)
+        }
     }
 }

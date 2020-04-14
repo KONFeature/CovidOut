@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nivelais.covidout.R
 import com.nivelais.covidout.common.entities.AttestationPdfEntity
@@ -14,12 +13,14 @@ import com.nivelais.covidout.common.utils.DateUtils
 import com.nivelais.covidout.databinding.DialogAttestaionActionsBinding
 import com.nivelais.covidout.presentation.openViaIntent
 import com.nivelais.covidout.presentation.shareViaIntent
+import com.nivelais.covidout.presentation.ui.home.HomeViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
 
-class AttestationActionsDialog() : BottomSheetDialogFragment() {
+class AttestationActionsDialog(private val attestationId: Long) : BottomSheetDialogFragment() {
 
     companion object {
         const val CREATE_FILE_REQUEST_CODE = 13;
@@ -31,6 +32,12 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
     private val viewModel: AttestationActionsViewModel by viewModel()
 
     /**
+     * Import the global view model
+     */
+    private val sharedViewModel: HomeViewModel by sharedViewModel()
+
+
+    /**
      * Import the view binding
      */
     private lateinit var binding: DialogAttestaionActionsBinding
@@ -39,11 +46,6 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
      * The file concerned by this attestations
      */
     private lateinit var attestationFile: File
-
-    /**
-     * The arguments for this dialog
-     */
-    val args: AttestationActionsDialogArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +60,7 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Ask the view model to load the attestations
-        viewModel.loadAttestion(args.attestationId)
+        viewModel.loadAttestion(attestationId)
 
         // Listen to the attestations live
         viewModel.attestationLive.observe(viewLifecycleOwner, Observer {
@@ -67,10 +69,17 @@ class AttestationActionsDialog() : BottomSheetDialogFragment() {
 
         // Listener on delete button
         binding.btnDelete.setOnClickListener {
-            viewModel.deleteAttestation(args.attestationId)
-            // Close the dialog
-            dismiss()
+            // Launch the deletion
+            viewModel.deleteAttestation(attestationId)
         }
+
+        // Listen to know when an attestatioon deleted
+        viewModel.attestationDeletedLive.observe(viewLifecycleOwner, Observer {
+            // Prevent the global view for this update
+            sharedViewModel.refreshAttestationsCount()
+            // dismiss this dialog
+            dismiss()
+        })
     }
 
     /**

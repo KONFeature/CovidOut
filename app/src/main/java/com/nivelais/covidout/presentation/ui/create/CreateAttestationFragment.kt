@@ -13,7 +13,10 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.nivelais.covidout.R
 import com.nivelais.covidout.common.utils.DateUtils
 import com.nivelais.covidout.databinding.FragmentCreateAttestationBinding
+import com.nivelais.covidout.presentation.ui.home.HomeViewModel
+import com.nivelais.covidout.presentation.ui.pdfactions.AttestationActionsDialog
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
 /**
@@ -25,6 +28,11 @@ class CreateAttestationFragment : Fragment() {
      * Import the view model
      */
     private val viewModel: CreateAttestationViewModel by inject()
+
+    /**
+     * Import the global view model
+     */
+    private val sharedViewModel: HomeViewModel by sharedViewModel()
 
     /**
      * Import the view binding
@@ -54,9 +62,7 @@ class CreateAttestationFragment : Fragment() {
         // Listener on the pick reasons click
         binding.btnPickReasons.setOnClickListener {
             // Launch the reason picker dialog
-            findNavController().navigate(
-                CreateAttestationFragmentDirections.actionCreateAttestationFragmentToPickReasonsDialog()
-            )
+            PickReasonsDialog().show(parentFragmentManager, null)
         }
 
         // Listener on Birth date calender button
@@ -188,15 +194,13 @@ class CreateAttestationFragment : Fragment() {
 
         })
 
-        // Listener for the generate4d pdf file
+        // Listener for the generated pdf file
         viewModel.liveGeneratedPdfId.observe(viewLifecycleOwner, Observer { pdfId ->
             run {
+                // Tell the global view model that the list of files as changed
+                sharedViewModel.refreshAttestationsCount()
                 // Open the dialog to let the user choose what he want to do with the generated file
-                findNavController().navigate(
-                    CreateAttestationFragmentDirections.actionCreateAttestationFragmentToPdfActionsDialog(
-                        pdfId
-                    )
-                )
+                AttestationActionsDialog(pdfId).show(parentFragmentManager, null)
             }
         })
     }

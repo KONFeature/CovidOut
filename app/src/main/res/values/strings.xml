@@ -39,5 +39,10 @@
     <string name="hint_input_out_time">Heure de sortie (hh:mm)</string>
     <string name="btn_generate_attestation">Générer mon attestation</string>
     <string name="btn_share">Partager</string>
+    <string name="lbl_create">Créer une attestation</string>
+    <string name="lbl_attestations">Mes Attestations</string>
+    
+    <string name="channel_notif_name">Attestation de déplacement en cours</string>
+    <string name="channel_notif_description">Vous permet d\'acceder rapidement a vos attestation de déplacement en cours de validite</string>
 
 </resources>

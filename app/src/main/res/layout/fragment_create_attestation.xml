@@ -156,6 +156,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@string/lbl_actual_out_reason" />
 
             <com.google.android.material.button.MaterialButton

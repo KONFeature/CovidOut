@@ -16,7 +16,6 @@ class PickReasonsDialog() : BottomSheetDialogFragment() {
      */
     private val viewModel: CreateAttestationViewModel by inject()
 
-
     /**
      * Import the view binding
      */

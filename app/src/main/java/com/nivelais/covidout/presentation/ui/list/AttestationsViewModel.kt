@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nivelais.covidout.common.entities.AttestationPdfEntity
 import com.nivelais.covidout.common.usecases.FetchAttestationsUseCase
+import com.nivelais.covidout.common.usecases.GetAttestationsCountUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -15,6 +16,7 @@ import kotlin.coroutines.CoroutineContext
 class AttestationsViewModel(
     private val fetchAttestationsUseCase: FetchAttestationsUseCase
 ) : ViewModel() {
+
     /*
     * Job and context for coroutines
     */
