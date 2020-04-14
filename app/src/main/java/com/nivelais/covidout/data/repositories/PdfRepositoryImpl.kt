@@ -199,12 +199,12 @@ class PdfRepositoryImpl(
         val generatedFormat = SimpleDateFormat("dd/MM/yyyy 'a' HH'h'mm", Locale.FRANCE)
         val outTimeFormatted =
             attestation.outTime.split(":")[0] + "h" + attestation.outTime.split(":")[1]
-        return "Cree le: ${generatedFormat.format(generatedDate)};" +
-                "Nom: ${attestation.name};" +
-                "Prenom: ${attestation.surname};" +
-                "Naissance: ${attestation.birthDate} a ${attestation.birthPlace};" +
-                "Adresse: ${attestation.address} ${attestation.postalCode} ${attestation.city};" +
-                "Sortie: ${attestation.outDate} a ${outTimeFormatted};" +
+        return "Cree le: ${generatedFormat.format(generatedDate)}; " +
+                "Nom: ${attestation.name}; " +
+                "Prenom: ${attestation.surname}; " +
+                "Naissance: ${attestation.birthDate} a ${attestation.birthPlace}; " +
+                "Adresse: ${attestation.address} ${attestation.postalCode} ${attestation.city}; " +
+                "Sortie: ${attestation.outDate} a ${outTimeFormatted}; " +
                 "Motifs: ${attestation.outReasons.joinToString("-") { it.value }}"
     }
 
