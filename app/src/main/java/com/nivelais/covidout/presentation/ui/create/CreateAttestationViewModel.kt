@@ -6,6 +6,7 @@ import com.nivelais.covidout.common.entities.AttestationEntity
 import com.nivelais.covidout.common.entities.OutReason
 import com.nivelais.covidout.common.usecases.GeneratePdfUseCase
 import com.nivelais.covidout.common.usecases.GetDefaultAttestationUseCase
+import com.nivelais.covidout.common.utils.DateUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -42,6 +43,11 @@ class CreateAttestationViewModel(
      */
     val livePickedReasons = MutableLiveData(HashSet<OutReason>())
 
+    /**
+     * Live data for the field validation
+     */
+    val liveFormValidation = MutableLiveData(HashMap<FormField, Boolean>())
+
     init {
         //  Load the attestations from preferences
         getDefaultAttestationUseCase(scope, Unit) { result ->
@@ -64,6 +70,20 @@ class CreateAttestationViewModel(
         outDate: String,
         outTime: String
     ) {
+        // Firslty we check the validity of the form
+        val isFormValid = isFormValid(
+            name,
+            surname,
+            birthdate,
+            birthplace,
+            address,
+            city,
+            postalCode,
+            outDate,
+            outTime
+        )
+        if (!isFormValid) return // Exit if the form isn't valid
+
         // Generate the attestion from the input of the user
         val attestation = AttestationEntity(
             name,
@@ -98,5 +118,57 @@ class CreateAttestationViewModel(
         }
         // Self reassign value to update observer
         livePickedReasons.postValue(livePickedReasons.value)
+    }
+
+    /**
+     * Validate our creation form
+     */
+    private fun isFormValid(
+        name: String,
+        surname: String,
+        birthdate: String,
+        birthplace: String,
+        address: String,
+        city: String,
+        postalCode: String,
+        outDate: String,
+        outTime: String
+    ): Boolean {
+        // Check the state of each input field
+        val formState = HashMap<FormField, Boolean>()
+        formState[FormField.NAME] = name.isNotEmpty()
+        formState[FormField.SURNAME] = surname.isNotEmpty()
+        formState[FormField.BIRTHDATE] = DateUtils.isValidDate(birthdate)
+        formState[FormField.BIRTHPLACE] = birthplace.isNotEmpty()
+        formState[FormField.ADDRESS] = address.isNotEmpty()
+        formState[FormField.CITY] = city.isNotEmpty()
+        formState[FormField.POSTAL_CODE] = postalCode.isNotEmpty()
+        formState[FormField.OUT_DATE] = DateUtils.isValidDate(outDate)
+        formState[FormField.OUT_TIME] = DateUtils.isValidTime(outTime)
+
+        // Check the user picked at least on out reason
+        formState[FormField.MOTIFS] = livePickedReasons.value?.size ?: 0 > 0
+
+        // Send the result to the view
+        liveFormValidation.postValue(formState)
+
+        // And return it
+        return !formState.containsValue(false)
+    }
+
+    /**
+     * List of the field in the view
+     */
+    enum class FormField {
+        NAME,
+        SURNAME,
+        BIRTHDATE,
+        BIRTHPLACE,
+        ADDRESS,
+        CITY,
+        POSTAL_CODE,
+        MOTIFS,
+        OUT_DATE,
+        OUT_TIME
     }
 }

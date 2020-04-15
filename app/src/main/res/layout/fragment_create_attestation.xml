@@ -170,6 +170,17 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/text_picked_motif_err"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/lbl_err_no_motif"
+            android:textColor="@color/red"
+            android:visibility="gone"/>
+
+        <TextView
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

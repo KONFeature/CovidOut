@@ -42,5 +42,6 @@
     <string name="btn_share">Partager</string>
     <string name="lbl_create">Créer une attestation</string>
     <string name="lbl_attestations">Mes Attestations</string>
+    <string name="lbl_err_no_motif">Merci de sélectionner au moins un motif</string>
 
 </resources>
