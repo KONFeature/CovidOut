@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Attestation de déplacement dérogatoire</string>
+    <string name="app_name">CovidOut - Attestation de déplacement</string>
 
     <string name="lbl_home_title">Attestation de déplacement dérogatoire</string>
     <string name="lbl_attestation_count">Vous avez actuellement %d attestation valide sur %d attestations.</string>
