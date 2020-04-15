@@ -34,7 +34,7 @@ data class AttestationPdfDbEntity(
 /**
  * Converter for our outreason
  */
-class OutReasonConverter() : PropertyConverter<List<OutReason>, String> {
+class OutReasonConverter : PropertyConverter<List<OutReason>, String> {
 
     override fun convertToDatabaseValue(entityProperty: List<OutReason>?): String {
         return entityProperty?.joinToString(";") { it.code.toString() } ?: ""

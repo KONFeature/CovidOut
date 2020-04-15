@@ -39,7 +39,7 @@ fun PDPageContentStream.writeText(text: String, posX: Float, posY: Float, textSi
     this.apply {
         beginText()
         setFont(PDType1Font.HELVETICA, textSize)
-        newLineAtOffset(posX, posY);
+        newLineAtOffset(posX, posY)
         showText(text)
         endText()
     }
@@ -61,7 +61,7 @@ fun PDPageContentStream.addBitmap(document: PDDocument, bitmap: Bitmap, posX: Fl
         bitmap.height,
         8,
         PDDeviceRGB.INSTANCE
-    );
+    )
 
     // Draw the image on the pdf
     this.drawImage(pdfImage, posX, posY)

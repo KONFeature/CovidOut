@@ -10,6 +10,9 @@ import com.nivelais.covidout.common.utils.DateUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -46,7 +49,7 @@ class CreateAttestationViewModel(
     /**
      * Live data for the field validation
      */
-    val liveFormValidation = MutableLiveData(HashMap<FormField, Boolean>())
+    val liveFormValidation = MutableLiveData(EnumMap<FormField, Boolean>(FormField::class.java))
 
     init {
         //  Load the attestations from preferences
@@ -135,7 +138,7 @@ class CreateAttestationViewModel(
         outTime: String
     ): Boolean {
         // Check the state of each input field
-        val formState = HashMap<FormField, Boolean>()
+        val formState = EnumMap<FormField, Boolean>(FormField::class.java)
         formState[FormField.NAME] = name.isNotEmpty()
         formState[FormField.SURNAME] = surname.isNotEmpty()
         formState[FormField.BIRTHDATE] = DateUtils.isValidDate(birthdate)

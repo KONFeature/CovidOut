@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.nivelais.covidout">
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:node="remove" />
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:node="remove" />
 
     <application
         android:allowBackup="true"
@@ -9,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".presentation.CovidOutApplication">
+        android:name=".presentation.CovidOutApplication"
+        android:fullBackupContent="@xml/backup_descriptor">
 
         <activity
             android:name="com.nivelais.covidout.presentation.ui.home.HomeActivity"

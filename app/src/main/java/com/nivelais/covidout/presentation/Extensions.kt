@@ -3,20 +3,9 @@ package com.nivelais.covidout.presentation
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Color
 import androidx.core.content.FileProvider
-import com.google.zxing.common.BitMatrix
-import com.tom_roush.pdfbox.cos.COSName
-import com.tom_roush.pdfbox.pdmodel.PDDocument
-import com.tom_roush.pdfbox.pdmodel.PDPageContentStream
-import com.tom_roush.pdfbox.pdmodel.font.PDType1Font
-import com.tom_roush.pdfbox.pdmodel.graphics.color.PDDeviceRGB
-import com.tom_roush.pdfbox.pdmodel.graphics.image.PDImageXObject
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Open a file via an intent

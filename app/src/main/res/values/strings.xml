@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">CovidOut - Attestation de déplacement</string>
 
-    <string name="lbl_home_title">Attestation de déplacement dérogatoire</string>
     <string name="lbl_attestation_count">Vous avez actuellement %d attestation valide sur %d attestations.</string>
     <string name="lbl_attestations_count">Vous avez actuellement %d attestations valides sur %d attestations.</string>
     <string name="lbl_my_attestations">Mes attestations</string>
@@ -41,7 +40,6 @@
     <string name="btn_generate_attestation">Générer mon attestation</string>
     <string name="btn_share">Partager</string>
     <string name="lbl_create">Créer une attestation</string>
-    <string name="lbl_attestations">Mes Attestations</string>
     <string name="lbl_err_no_motif">Merci de sélectionner au moins un motif</string>
 
 </resources>

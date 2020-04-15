@@ -9,7 +9,7 @@ import com.nivelais.covidout.common.entities.OutReason
 import com.nivelais.covidout.databinding.DialogPickReasonsBinding
 import org.koin.android.ext.android.inject
 
-class PickReasonsDialog() : BottomSheetDialogFragment() {
+class PickReasonsDialog : BottomSheetDialogFragment() {
 
     /**
      * Fetch the create attestions view model,

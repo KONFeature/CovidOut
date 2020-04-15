@@ -16,7 +16,6 @@ import com.nivelais.covidout.data.writeText
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.pdmodel.PDPage
 import com.tom_roush.pdfbox.pdmodel.PDPageContentStream
-import com.tom_roush.pdfbox.util.Matrix
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.kotlin.boxFor
@@ -45,7 +44,7 @@ class PdfRepositoryImpl(
     /**
      * Folder in wich we will store generated PDF File
      */
-    private final val pdfFolder = File(pdfInternalDir, INTENAL_FOLDER_NAME)
+    private val pdfFolder = File(pdfInternalDir, INTENAL_FOLDER_NAME)
 
     /**
      * Access to our database
@@ -59,8 +58,8 @@ class PdfRepositoryImpl(
 
 
         // Add some text
-        val generatedDate = Date();
-        writeAttestationInfos(attestation, generatedDate, document, page);
+        val generatedDate = Date()
+        writeAttestationInfos(attestation, generatedDate, document, page)
 
         // Generate and add the QrCode
         val qrCodeData = generateQrCodeData(attestation, generatedDate)
@@ -126,9 +125,9 @@ class PdfRepositoryImpl(
 
     override suspend fun deleteAttestation(id: Long) {
         // Try to find the local file and delete it
-        dao.get(id).path?.let {path ->
+        dao.get(id).path?.let { path ->
             val localFile = File(path)
-            if(localFile.exists()) localFile.delete()
+            if (localFile.exists()) localFile.delete()
         }
 
         // Remove it from database

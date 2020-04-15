@@ -5,7 +5,7 @@ import io.objectbox.BoxStore
 
 object ObjectBox {
 
-    const val DB_NAME = "covidout.db"
+    private const val DB_NAME = "covidout.db"
 
     /**
      * Store who will contain all of our database

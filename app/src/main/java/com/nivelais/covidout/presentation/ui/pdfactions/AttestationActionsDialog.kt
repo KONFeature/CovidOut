@@ -23,7 +23,7 @@ import java.util.*
 class AttestationActionsDialog(private val attestationId: Long) : BottomSheetDialogFragment() {
 
     companion object {
-        const val CREATE_FILE_REQUEST_CODE = 13;
+        const val CREATE_FILE_REQUEST_CODE = 13
     }
 
     /**

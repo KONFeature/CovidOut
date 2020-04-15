@@ -19,7 +19,7 @@ import java.io.File
 /**
  * Fragment that list the current and past attestations
  */
-class AttestationsFragment() : Fragment() {
+class AttestationsFragment : Fragment() {
 
     /**
      * Import the view model
