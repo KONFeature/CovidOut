@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CovidOut - Attestation de déplacement</string>
+    <string name="app_name">Attestation de déplacement</string>
 
     <string name="lbl_attestation_count">Vous avez actuellement %d attestation valide sur %d attestations.</string>
     <string name="lbl_attestations_count">Vous avez actuellement %d attestations valides sur %d attestations.</string>
