@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.nivelais.covidout">
+    package="com.nivelais.attestationsortie">
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -18,11 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".presentation.CovidOutApplication"
+        android:name="com.nivelais.attestationsortie.presentation.AttestationSortieApplication"
         android:fullBackupContent="@xml/backup_descriptor">
 
         <activity
-            android:name="com.nivelais.covidout.presentation.ui.home.HomeActivity"
+            android:name="com.nivelais.attestationsortie.presentation.ui.home.HomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name">
             <intent-filter>
@@ -34,7 +34,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.nivelais.covidout.provider"
+            android:authorities="com.nivelais.attestationsortie.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

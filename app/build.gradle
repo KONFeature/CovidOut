@@ -11,14 +11,17 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.nivelais.covidout"
+        applicationId "com.nivelais.attestationsortie"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 222
-        versionName "2.2.2"
+        versionCode 100
+        versionName "1.0.0"
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
         release {
             minifyEnabled true
             shrinkResources true
